@@ -58,107 +58,105 @@ const reEmail =
 
 export default function Login() {
   return (
-    <ThemeProvider theme={theme}>
-      <Container component='main' maxWidth='xs' sx={{ marginTop: 25 }}>
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Link href='/' underline='none'>
-            <Avatar sx={{ m: 1, bgcolor: '#16382c', width: 56, height: 56 }}>
-              <Handshake href='/' />
-            </Avatar>
-          </Link>
-
-          <Typography component='h1' variant='h4' sx={{ color: '#ff7334' }}>
-            Iniciar Sesión
-          </Typography>
-          <Formik
-            initialValues={{
-              email: '',
-              password: '',
+    <>
+      <ThemeProvider theme={theme}>
+        <Container component='main' maxWidth='xs' sx={{ marginTop: 25 }}>
+          <CssBaseline />
+          <Box
+            sx={{
+              marginTop: 8,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
             }}
-            validate={validate}
-            onSubmit={submit}
           >
-            {({ values, errors, handleChange, handleBlur }) => (
-              <Form noValidate sx={{ mt: 1 }}>
-                <TextField
-                  id='email'
-                  name='email'
-                  margin='normal'
-                  required
-                  fullWidth
-                  label='Correo electronico'
-                  autoComplete='email'
-                  autoFocus
-                  value={values.email}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  sx={{ mb: 0 }}
-                />
-                <ErrorMessage
-                  name='email'
-                  component={() => <AlertComp text={errors.email} />}
-                />
-                <TextField
-                  id='password'
-                  name='password'
-                  margin='normal'
-                  required
-                  fullWidth
-                  label='Password'
-                  autoComplete='password'
-                  type='password'
-                  value={values.password}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  sx={{ mb: 0 }}
-                />
-                <ErrorMessage
-                  name='password'
-                  component={() => <AlertComp text={errors.password} />}
-                />
-                <Button
-                  className='boton-ingreso'
-                  type='submit'
-                  fullWidth
-                  variant='contained'
-                  sx={{
-                    marginTop: 3,
-                    marginBottom: 2,
-                    backgroundColor: '#ff7334',
-                  }}
-                >
-                  Sign In
-                </Button>
-                <Grid container>
-                  <Grid item xs>
-                    <Link
-                      href='/forgot-password'
-                      variant='body2'
-                      color='#16382c'
-                    >
-                      ¿Olvidaste la contraseña?
-                    </Link>
+            <Link href='/' underline='none'>
+              <Avatar sx={{ m: 1, bgcolor: '#16382c', width: 56, height: 56 }}>
+                <Handshake href='/' />
+              </Avatar>
+            </Link>
+
+            <Typography component='h1' variant='h4' sx={{ color: '#ff7334' }}>
+              Iniciar Sesión
+            </Typography>
+            <Formik
+              initialValues={{
+                email: '',
+                password: '',
+              }}
+              validate={validate}
+              onSubmit={submit}
+            >
+              {({ values, errors, handleChange, handleBlur }) => (
+                <Form noValidate sx={{ mt: 1 }}>
+                  <TextField
+                    id='email'
+                    name='email'
+                    margin='normal'
+                    required
+                    fullWidth
+                    label='Correo electronico'
+                    autoComplete='email'
+                    autoFocus
+                    value={values.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    sx={{ mb: 0 }}
+                  />
+                  <ErrorMessage
+                    name='email'
+                    component={() => <AlertComp text={errors.email} />}
+                  />
+                  <TextField
+                    id='password'
+                    name='password'
+                    margin='normal'
+                    required
+                    fullWidth
+                    label='Password'
+                    autoComplete='password'
+                    type='password'
+                    value={values.password}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    sx={{ mb: 0 }}
+                  />
+                  <ErrorMessage
+                    name='password'
+                    component={() => <AlertComp text={errors.password} />}
+                  />
+                  <Button
+                    className='boton-ingreso'
+                    type='submit'
+                    fullWidth
+                    variant='contained'
+                    sx={{
+                      marginTop: 3,
+                      marginBottom: 2,
+                      backgroundColor: '#ff7334',
+                    }}
+                  >
+                    Sign In
+                  </Button>
+                  <Grid container>
+                    <Grid item xs>
+                      <Link href='/forgot' variant='body2' color='#16382c'>
+                        ¿Olvidaste la contraseña?
+                      </Link>
+                    </Grid>
+                    <Grid item>
+                      <Link href='#' variant='body2' color='#16382c'>
+                        {'¿No tienes una cuenta? Registrate'}
+                      </Link>
+                    </Grid>
                   </Grid>
-                  <Grid item>
-                    <Link href='#' variant='body2' color='#16382c'>
-                      {'¿No tienes una cuenta? Registrate'}
-                    </Link>
-                  </Grid>
-                </Grid>
-              </Form>
-            )}
-          </Formik>
-        </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
-      </Container>
-    </ThemeProvider>
+                </Form>
+              )}
+            </Formik>
+          </Box>
+          <Copyright sx={{ mt: 8, mb: 4 }} />
+        </Container>
+      </ThemeProvider>
+    </>
   );
 }
