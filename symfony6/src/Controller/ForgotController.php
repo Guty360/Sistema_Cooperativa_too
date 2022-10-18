@@ -11,7 +11,7 @@ class ForgotController extends AbstractController
     #[Route('/forgot', name: 'app_forgot')]
     public function index(): Response
     {
-        return $this->render('forgot/index.html.twig', [
+        return $this->render('index/index.html.twig', [
             'controller_name' => 'ForgotController',
         ]);
     }
