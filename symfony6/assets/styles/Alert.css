@@ -1,0 +1,6 @@
+.container-alert {
+  align-items: center;
+  font-size: 25px;
+  height: 40px;
+  display: flex;
+}

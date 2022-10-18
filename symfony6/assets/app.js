@@ -1,21 +1,19 @@
 import './styles/app.css';
 import './bootstrap';
 import React from 'react';
-import ReactDOM from'react-dom';
-
-
-// console.log('ARTATE MIERDA GOCHEZ');
-
+import ReactDOM from 'react-dom/client';
+import HomeComp from './pages/Home/Home';
 
 function App() {
-	return (
-		<div className='App'>
-			<h1>QUE PEDO, COMO LES VA</h1>
-            <p>Vamos a valer burguer</p>
-            <p>Att. Fox</p>
-		</div>
-	)
+  return (
+    <>
+      <HomeComp />
+    </>
+  );
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
-
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
