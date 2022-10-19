@@ -1,0 +1,73 @@
+#Instalacion de solo symfony
+https://flotadigital.com/club/tutoriales/windows/instalar-symfony-en-windows-10/
+
+------------------------------------------------------------------------------------
+
+#Crear proyecto
+composer create-project symfony/website-skeleton symfony5
+
+
+#iniciar apache con symfony-php
+composer require symfony/apache-pack
+
+
+#acceder a la ventana principal
+http://localhost/symfony5/public/
+
+
+#Crear la base de datos.
+php bin/console doctrine:database:create
+
+--------------------------------------------------------------------
+CREACION Y ACTUALIZACION DE INFORMACION EN BASE DE DATOS
+
+
+#Crear usuario (entity)-----> se convierten en tablas en DB
+php bin/console make:user
+Nota: Para este caso esta configuracion solo se usa para la clase o entidad primaria - main,
+es decir, es la clase que interacciona con la DB. solo se usa 1 vez. Para las demas entidades
+se usa con make:entity-
+
+
+
+#Migrar la informacion de la base de datos
+php bin/console make:migration
+
+
+
+#Correr la informacion y moverla al proyecto symfony de la base de datos
+php bin/console doctrine:migrations:migrate
+
+
+
+#Actualizar informacion de la (entidad-entity) una vez exista
+php bin/console make:entity  ------> para cuando la tabla o clase existe y no es primary.
+
+php bin/console make:entity "nombre de la clase" ---> cuando es nueva
+
+
+
+#Agregar las relaciones entre entidades.
+php bin/console make:entity "nombre de la clase" ----> abres la clase que deseas asignarle
+						       relación.
+
+		
+#API SYMFONY
+https://api-platform.com/docs/
+
+
+#Generar el archivo WebPack.js en symfony	
+composer require webpack
+
+
+#Instalar el webpack-encore-bundle
+composer require symfony/webpack-encore-bundle
+
+
+
+
+####COMANDO PRIMORDIAL#####
+yarn dev-server -----> Este comando es para refrescar los cambios de symfony con react
+
+#AYUDA CON CONFIGURACIONES DEL FRONTED
+https://symfony.com/doc/current/frontend/encore/simple-example.html
