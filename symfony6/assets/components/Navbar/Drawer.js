@@ -10,6 +10,7 @@ import {
 import { Menu } from '@mui/icons-material';
 import { navItems } from './Navbar.js';
 
+//Pinta el menu desplegable
 const DrawerComp = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const newNavItems = navItems.concat(['Login', 'Registrarse']);
