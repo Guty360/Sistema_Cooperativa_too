@@ -88,6 +88,38 @@ class Asociado implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private ?CuentaAhorro $CuentaAhorro = null;
 
+    #[ORM\OneToOne(inversedBy: 'asociado', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?CarnetMinoridad $CarnetMinoridad = null;
+
+    #[ORM\OneToOne(inversedBy: 'asociado', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Pasaporte $Pasaporte = null;
+
+    #[ORM\OneToOne(inversedBy: 'asociado', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?NUP $NUP = null;
+
+    #[ORM\OneToOne(inversedBy: 'asociado', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?NIT $NIT = null;
+
+    #[ORM\OneToOne(inversedBy: 'asociado', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?ISSS $ISSS = null;
+
+    #[ORM\OneToOne(inversedBy: 'asociado', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?DUI $DUI = null;
+
+    #[ORM\OneToOne(inversedBy: 'asociado', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?TarjetaIVA $TarjetaIVA = null;
+
+    #[ORM\OneToOne(inversedBy: 'asociado', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?HojaLegal $HojaLegal = null;
+
     public function __construct()
     {
         $this->Titulo = new ArrayCollection();
@@ -432,6 +464,102 @@ class Asociado implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCuentaAhorro(CuentaAhorro $CuentaAhorro): self
     {
         $this->CuentaAhorro = $CuentaAhorro;
+
+        return $this;
+    }
+
+    public function getCarnetMinoridad(): ?CarnetMinoridad
+    {
+        return $this->CarnetMinoridad;
+    }
+
+    public function setCarnetMinoridad(CarnetMinoridad $CarnetMinoridad): self
+    {
+        $this->CarnetMinoridad = $CarnetMinoridad;
+
+        return $this;
+    }
+
+    public function getPasaporte(): ?Pasaporte
+    {
+        return $this->Pasaporte;
+    }
+
+    public function setPasaporte(Pasaporte $Pasaporte): self
+    {
+        $this->Pasaporte = $Pasaporte;
+
+        return $this;
+    }
+
+    public function getNUP(): ?NUP
+    {
+        return $this->NUP;
+    }
+
+    public function setNUP(NUP $NUP): self
+    {
+        $this->NUP = $NUP;
+
+        return $this;
+    }
+
+    public function getNIT(): ?NIT
+    {
+        return $this->NIT;
+    }
+
+    public function setNIT(NIT $NIT): self
+    {
+        $this->NIT = $NIT;
+
+        return $this;
+    }
+
+    public function getISSS(): ?ISSS
+    {
+        return $this->ISSS;
+    }
+
+    public function setISSS(ISSS $ISSS): self
+    {
+        $this->ISSS = $ISSS;
+
+        return $this;
+    }
+
+    public function getDUI(): ?DUI
+    {
+        return $this->DUI;
+    }
+
+    public function setDUI(DUI $DUI): self
+    {
+        $this->DUI = $DUI;
+
+        return $this;
+    }
+
+    public function getTarjetaIVA(): ?TarjetaIVA
+    {
+        return $this->TarjetaIVA;
+    }
+
+    public function setTarjetaIVA(TarjetaIVA $TarjetaIVA): self
+    {
+        $this->TarjetaIVA = $TarjetaIVA;
+
+        return $this;
+    }
+
+    public function getHojaLegal(): ?HojaLegal
+    {
+        return $this->HojaLegal;
+    }
+
+    public function setHojaLegal(HojaLegal $HojaLegal): self
+    {
+        $this->HojaLegal = $HojaLegal;
 
         return $this;
     }
