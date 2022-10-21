@@ -70,6 +70,24 @@ class Asociado implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private ?ActividadEconomica $ActividadEconomica = null;
 
+    #[ORM\OneToOne(inversedBy: 'asociado', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?MandamientoPago $MandamientoPago = null;
+
+    #[ORM\OneToOne(inversedBy: 'asociado', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Carnet $Carnet = null;
+
+    #[ORM\OneToOne(inversedBy: 'asociado', cascade: ['persist', 'remove'])]
+    private ?Contrato $Contrato = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?CuentaAportacion $CuentaAportacion = null;
+
+    #[ORM\OneToOne(inversedBy: 'asociado', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?CuentaAhorro $CuentaAhorro = null;
+
     public function __construct()
     {
         $this->Titulo = new ArrayCollection();
@@ -354,6 +372,66 @@ class Asociado implements UserInterface, PasswordAuthenticatedUserInterface
     public function setActividadEconomica(ActividadEconomica $ActividadEconomica): self
     {
         $this->ActividadEconomica = $ActividadEconomica;
+
+        return $this;
+    }
+
+    public function getMandamientoPago(): ?MandamientoPago
+    {
+        return $this->MandamientoPago;
+    }
+
+    public function setMandamientoPago(MandamientoPago $MandamientoPago): self
+    {
+        $this->MandamientoPago = $MandamientoPago;
+
+        return $this;
+    }
+
+    public function getCarnet(): ?Carnet
+    {
+        return $this->Carnet;
+    }
+
+    public function setCarnet(Carnet $Carnet): self
+    {
+        $this->Carnet = $Carnet;
+
+        return $this;
+    }
+
+    public function getContrato(): ?Contrato
+    {
+        return $this->Contrato;
+    }
+
+    public function setContrato(?Contrato $Contrato): self
+    {
+        $this->Contrato = $Contrato;
+
+        return $this;
+    }
+
+    public function getCuentaAportacion(): ?CuentaAportacion
+    {
+        return $this->CuentaAportacion;
+    }
+
+    public function setCuentaAportacion(?CuentaAportacion $CuentaAportacion): self
+    {
+        $this->CuentaAportacion = $CuentaAportacion;
+
+        return $this;
+    }
+
+    public function getCuentaAhorro(): ?CuentaAhorro
+    {
+        return $this->CuentaAhorro;
+    }
+
+    public function setCuentaAhorro(CuentaAhorro $CuentaAhorro): self
+    {
+        $this->CuentaAhorro = $CuentaAhorro;
 
         return $this;
     }

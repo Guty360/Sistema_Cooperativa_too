@@ -39,6 +39,10 @@ class ActividadEconomica
     #[ORM\OneToMany(mappedBy: 'actividadEconomica', targetEntity: Negocio::class, orphanRemoval: true)]
     private Collection $Negocio;
 
+    #[ORM\OneToOne(inversedBy: 'actividadEconomica', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?EstudioSocioEconomico $EstudioSocioEconomico = null;
+
     public function __construct()
     {
         $this->Negocio = new ArrayCollection();
@@ -164,6 +168,18 @@ class ActividadEconomica
                 $negocio->setActividadEconomica(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEstudioSocioEconomico(): ?EstudioSocioEconomico
+    {
+        return $this->EstudioSocioEconomico;
+    }
+
+    public function setEstudioSocioEconomico(EstudioSocioEconomico $EstudioSocioEconomico): self
+    {
+        $this->EstudioSocioEconomico = $EstudioSocioEconomico;
 
         return $this;
     }
