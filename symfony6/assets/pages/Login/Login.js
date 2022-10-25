@@ -1,4 +1,6 @@
+
 import React from 'react';
+
 import {
   Avatar,
   Button,
@@ -14,6 +16,7 @@ import { Handshake } from '@mui/icons-material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Formik, Form, ErrorMessage } from 'formik';
 import AlertComp from '../../components/Alert';
+import { letterSpacing } from '@mui/system';
 function Copyright(props) {
   return (
     <Typography
@@ -48,10 +51,32 @@ const validate = (value) => {
   return error;
 };
 
+
 const submit = (value, { resetForm }) => {
   resetForm();
   console.log(value);
 };
+
+// const handleSubmit = async e => {
+
+//   e.preventDefault() 
+//   try{
+//       let config = {
+//         method: 'POST',
+//          headers: {
+//             'Accept': 'application/json',
+//         },
+//          body: JSON.stringify(this.state.form)
+//       }
+
+//       let res = await fetch('api/LoginController.php', config)
+//       let json  = await res.json()
+
+//       console.log(json)
+//   }catch (error){
+//     console.log(error);
+//   }
+// }
 const reEmail =
   // eslint-disable-next-line no-useless-escape
   /^(([^<>()\[\]\.,;:\s@\”]+(\.[^<>()\[\]\.,;:\s@\”]+)*)|(\”.+\”))@(([^<>()[\]\.,;:\s@\”]+\.)+[^<>()[\]\.,;:\s@\”]{2,})$/;
