@@ -52,10 +52,15 @@ const validate = (value) => {
   return error;
 };
 
+    /**
+     * @Route("/obtener", name="index")
+     */
 
 const submit = (value, { resetForm }) => {
   resetForm();
+
   Obtener(); //asignacion de metodo al boton
+  enviar(value.email, value.password);
 };
 
 
@@ -63,8 +68,25 @@ const submit = (value, { resetForm }) => {
 function Obtener() {
 
 axios.get('/datos/personas/read').then(response => {console.log(response.data)}).catch(error => {console.log(error)});
+
 }
 
+function enviar(email, password) {
+
+  let json = [email, password];
+
+  fetch('http://127.0.0.1:8000/datos/personas/prueba', {
+    headers: {
+      'Content-type': 'application/json'
+    },
+    method: 'POST',
+    body: JSON.stringify(json)
+    }).then(function(response){
+     console.log(response)
+    }).catch(error => {console.log(error)});
+    
+    console.log(json);
+}
 
 
 const reEmail =
