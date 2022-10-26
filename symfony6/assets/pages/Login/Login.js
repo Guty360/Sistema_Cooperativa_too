@@ -72,7 +72,6 @@ axios.get('/datos/personas/read').then(response => {console.log(response.data)})
 }
 
 function enviar(email, password) {
-
   let json = [email, password];
 
   fetch('http://127.0.0.1:8000/datos/personas/prueba', {

@@ -16,9 +16,10 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/datos/personas", name="datos")
  */
+
 class TraerDatosDBController extends AbstractController
 {
-
+    // es posible omitir el entityManager
     private $entityManager;
     private $PersonaRepository;
 
@@ -30,7 +31,7 @@ class TraerDatosDBController extends AbstractController
 
     /**
      * @Route("/read", name="index")
-     */
+    */
 
     public function index()
     {
@@ -40,7 +41,8 @@ class TraerDatosDBController extends AbstractController
         foreach ($todos as $todo) {
             $array[] = $todo->toArray();
         }
-        return $this->json($array);
+
+        return $this->json($array[0]);
     }
 
      /**
@@ -60,7 +62,7 @@ class TraerDatosDBController extends AbstractController
            
         }else{
             $response = new Response();
-
+            
             $response->setContent(json_encode([
                 'data' => $datos,
             ]));

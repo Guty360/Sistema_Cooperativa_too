@@ -6,6 +6,7 @@ use App\Repository\PersonaRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+
 #[ORM\Entity(repositoryClass: PersonaRepository::class)]
 class Persona
 {
@@ -251,6 +252,6 @@ class Persona
     
     public function toArray()
         {
-            return ['id' => $this->id, 'correo' => $this->correo, 'edad' => $this->edad];
+        return [/*'id' => $this->getPrimerApellido(),*/  'correo' => $this->correo, /*'edad' => $this->edad*/];
         }
     }
