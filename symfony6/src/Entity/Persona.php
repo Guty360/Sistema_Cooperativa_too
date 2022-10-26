@@ -248,4 +248,9 @@ class Persona
 
         return $this;
     }
-}
+    
+    public function toArray()
+        {
+            return ['id' => $this->id, 'correo' => $this->correo, 'edad' => $this->edad];
+        }
+    }

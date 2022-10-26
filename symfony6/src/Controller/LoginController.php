@@ -17,10 +17,19 @@ class LoginController extends AbstractController
         ]);
     }
 
-    public function datosLogin(string $correo, string $contraseña)
+    public function datosLogin($correo, $contraseña)
     {
-       echo "el correo es" + $correo + "y la contraseña" + $contraseña;
+        $correo = $_POST['corr'];
+        $contraseña = $_POST['contra'];
+       
+        if(isset($_POST["correo"]) && $_POST["contraseña"]){
+            if($_POST['$correo']){
 
+                echo "correo recibido: " .$_POST['$correo'];
+        }else{
+            echo "correo no recibido";
+            }
+        }
     }
 
 }

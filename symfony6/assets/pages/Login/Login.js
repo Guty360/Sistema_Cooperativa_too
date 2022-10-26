@@ -1,6 +1,6 @@
 
 import React from 'react';
-
+import axios from 'axios';
 import {
   Avatar,
   Button,
@@ -12,11 +12,12 @@ import {
   Typography,
   Container,
 } from '@mui/material';
-import { Handshake } from '@mui/icons-material';
+import { Handshake, Php } from '@mui/icons-material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Formik, Form, ErrorMessage } from 'formik';
 import AlertComp from '../../components/Alert';
 import { letterSpacing } from '@mui/system';
+import { any } from 'prop-types';
 function Copyright(props) {
   return (
     <Typography
@@ -54,29 +55,18 @@ const validate = (value) => {
 
 const submit = (value, { resetForm }) => {
   resetForm();
-  console.log(value);
+  Obtener(); //asignacion de metodo al boton
 };
 
-// const handleSubmit = async e => {
 
-//   e.preventDefault() 
-//   try{
-//       let config = {
-//         method: 'POST',
-//          headers: {
-//             'Accept': 'application/json',
-//         },
-//          body: JSON.stringify(this.state.form)
-//       }
+//metodo para recuperación de informacion de la base de datos
+function Obtener() {
 
-//       let res = await fetch('api/LoginController.php', config)
-//       let json  = await res.json()
+axios.get('/datos/personas/read').then(response => {console.log(response.data)}).catch(error => {console.log(error)});
+}
 
-//       console.log(json)
-//   }catch (error){
-//     console.log(error);
-//   }
-// }
+
+
 const reEmail =
   // eslint-disable-next-line no-useless-escape
   /^(([^<>()\[\]\.,;:\s@\”]+(\.[^<>()\[\]\.,;:\s@\”]+)*)|(\”.+\”))@(([^<>()[\]\.,;:\s@\”]+\.)+[^<>()[\]\.,;:\s@\”]{2,})$/;
@@ -155,11 +145,14 @@ export default function Login() {
                     type='submit'
                     fullWidth
                     variant='contained'
+                    id='boton1'
+                  
                     sx={{
                       marginTop: 3,
                       marginBottom: 2,
                       backgroundColor: '#ff7334',
                     }}
+                    
                   >
                     Sign In
                   </Button>
