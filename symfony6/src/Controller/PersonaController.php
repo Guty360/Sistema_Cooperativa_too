@@ -46,7 +46,7 @@ class PersonaController extends AbstractController
         $correo = $request->get('correo', null);
         $personas = $personaRepository->findAll();
         foreach ($personas as $persona) {
-            if($correo == $persona->getCorreo()){
+            if($correo == $persona->getCorreo() || $correo == $persona->getCelular()){
                 $personaAsArray[] = [
                     'id' => $persona->getId(),
                     'nombre' => $persona->getPrimerNombre(),
