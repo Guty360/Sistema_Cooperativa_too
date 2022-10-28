@@ -17,22 +17,23 @@ security:
         main:
             lazy: true
             provider: app_user_provider
-            pattern: ^/api/login
-            stateless: true
-            # anonymous: true
-            form_login:
-                login_path: app_login
-                check_path: app_login   
-            logout:
-                path:       login
-                target:     login
-
+            json_login:
+                # login_path: app_login
+                check_path: app_login
+                # enable_csrf: true
+        # api_login:
+        #     pattern: ^/api/login
+        #     stateless: true
+        #         json_login:
+        #             check_path:  /app_login
+        #             success_handler: lexik_jwt_authentication.handler.authentication_success
+        #             failure handler: lexik_jwt_authentication.handler.authentication_failure
         # api:
         #     pattern: ^/api
         #     stateless: true
-        #     guard:
-        #         authenticators:
-        #            - lexik_jwt_authentication.jwt_token_authenticator
+        #     jwt: ~
+        
+
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 
