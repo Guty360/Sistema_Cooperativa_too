@@ -33,6 +33,7 @@ class RegistrationController extends AbstractController
      */
     public function index(Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
+        //Haciendo el seteo del nuevo usuario, a la base de datos
         $user = new User();
         $plaintextPassword = '1000';
         $email = 'jmge@gmail.com';
@@ -42,6 +43,7 @@ class RegistrationController extends AbstractController
             $plaintextPassword
         );
 
+        //Metodos del seteo de la base de datos de la tabla(entidad user)
         $user->setPassword($hashedPassword);
         $user->setRoles(['ROLE_USER']);
         $user->setEmail($email);

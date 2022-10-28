@@ -18,9 +18,11 @@ security:
             lazy: true
             provider: app_user_provider
             json_login:
-                # login_path: app_login
+                # login_path: app_login    ------>es de prueba cuando se usa un from local no tocar
                 check_path: app_login
-                # enable_csrf: true
+                # enable_csrf: true        ------>es de prueba cuando se usa un from local no tocar
+
+        #----------------------- No tocar esta funcion-----------------------
         # api_login:
         #     pattern: ^/api/login
         #     stateless: true

@@ -29,7 +29,7 @@ class LoginController extends AbstractController
         }
 
         $token = $user.$_GET($user->getPassword()); // somehow create an API token for $user
-
+        
 
         return $this->render('index/index.html.twig', [
         'user'  => $user->getUserIdentifier(),
