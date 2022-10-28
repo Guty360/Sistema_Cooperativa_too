@@ -1,11 +1,15 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import { Stepper, Container } from '@mui/material';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { LocalActivitySharp } from '@mui/icons-material';
+import {
+  Stepper,
+  Container,
+  Typography,
+  Button,
+  StepLabel,
+  Step,
+} from '@mui/material';
+
+//Pantallas
 import InformacionPersonal from './InformacionPersonal';
 import InformacionDomicilio from './InformacionDomicilio';
 import ActividadEconomica from './ActividadEconomica';
@@ -34,14 +38,8 @@ export default function Ingreso() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleSkip = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleReset = () => {
-    setActiveStep(0);
-  };
-  function mostrarPaginas() {
+  //Funcion cambia las pantalla dependiendo del paso del proceso
+  function mostrarPaginas(handleNext) {
     switch (activeStep) {
       case 0:
         return <InformacionPersonal />;
@@ -67,7 +65,7 @@ export default function Ingreso() {
     }
   }
   return (
-    <Container>
+    <Container sx={{ mt: 5 }}>
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps = {};
@@ -91,7 +89,7 @@ export default function Ingreso() {
         </React.Fragment>
       ) : (
         <React.Fragment>
-          {mostrarPaginas()}
+          {mostrarPaginas(handleNext)}
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
             <Button
               color='inherit'
