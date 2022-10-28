@@ -40,10 +40,11 @@ class PersonaController extends AbstractController
         return $response;
     }
     /**
-     * @Route("/encuentra", name="encuentra_personas")
+     * @Route("/olvida", name="encuentra_personas")
      */
-    public function encuentra(Request $request, PersonaRepository $personaRepository){
+    public function olvida(Request $request, PersonaRepository $personaRepository){
         $correo = $request->get('correo', null);
+        $personaAsArray = [];
         $personas = $personaRepository->findAll();
         foreach ($personas as $persona) {
             if($correo == $persona->getCorreo() || $correo == $persona->getCelular()){
@@ -54,11 +55,21 @@ class PersonaController extends AbstractController
                 ];
             }
         };
-        $response = new JsonResponse();
-        $response->setData([
-            'sucess' => true,
-            'data' => $personaAsArray
-        ]);
-        return $response;
+        if(empty($personaAsArray)){
+            $response = new JsonResponse();
+            $response->setData([
+                'encontrado' => false,
+                'data' => "no se encuenta"
+            ]);
+            return $response;
+        }else{
+            $response = new JsonResponse();
+            $response->setData([
+                'encontrado' => true,
+                'data' => $personaAsArray
+            ]);
+            return $response;
+        }
+        
     }
 }
