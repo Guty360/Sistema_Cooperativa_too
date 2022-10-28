@@ -1,4 +1,3 @@
-
 import React from 'react';
 import axios from 'axios';
 import {
@@ -16,8 +15,7 @@ import { Handshake, Php } from '@mui/icons-material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Formik, Form, ErrorMessage } from 'formik';
 import AlertComp from '../../components/Alert';
-import { letterSpacing } from '@mui/system';
-import { any } from 'prop-types';
+import { reEmail } from '../../utilities/regularExpression';
 function Copyright(props) {
   return (
     <Typography
@@ -44,7 +42,7 @@ const validate = (value) => {
   if (!value.email) {
     error.email = 'Debes ingresar un correo';
   } else if (!reEmail.test(value.email)) {
-    error.email = 'El correo en invalido';
+    error.email = 'El correo en inválido';
   }
 
   // Validacion password
@@ -52,49 +50,25 @@ const validate = (value) => {
   return error;
 };
 
-    /**
-     * @Route("/obtener", name="index")
-     */
-
 const submit = (value, { resetForm }) => {
   resetForm();
-
-  Obtener(); //asignacion de metodo al boton
+  axios
+    .post('http://127.0.0.1:8000/login', {
+      username: value.email,
+      password: value.password,
+    })
+    .then((response) => {
+      if (response.status == '200') alert('Estas autentificado');
+    })
+    .catch(function (error) {
+      alert(error);
+    });
   enviar(value.email, value.password);
 };
 
-
-//metodo para recuperación de informacion de la base de datos
-function Obtener() {
-
-axios.get('/datos/personas/read').then(response => {console.log(response.data)}).catch(error => {console.log(error)});
-
-}
-
-function enviar(email, password) {
-  let json = [email, password];
-
-  fetch('http://127.0.0.1:8000/datos/personas/prueba', {
-    headers: {
-      'Content-type': 'application/json'
-    },
-    method: 'POST',
-    body: JSON.stringify(json)
-    }).then(function(response){
-     console.log(response)
-    }).catch(error => {console.log(error)});
-    
-    console.log(json);
-}
-
-
-const reEmail =
-  // eslint-disable-next-line no-useless-escape
-  /^(([^<>()\[\]\.,;:\s@\”]+(\.[^<>()\[\]\.,;:\s@\”]+)*)|(\”.+\”))@(([^<>()[\]\.,;:\s@\”]+\.)+[^<>()[\]\.,;:\s@\”]{2,})$/;
-
 export default function Login() {
   return (
-    <>
+    <React.Fragment>
       <ThemeProvider theme={theme}>
         <Container component='main' maxWidth='xs' sx={{ marginTop: 25 }}>
           <CssBaseline />
@@ -167,13 +141,11 @@ export default function Login() {
                     fullWidth
                     variant='contained'
                     id='boton1'
-                  
                     sx={{
                       marginTop: 3,
                       marginBottom: 2,
                       backgroundColor: '#ff7334',
                     }}
-                    
                   >
                     Sign In
                   </Button>
@@ -196,6 +168,6 @@ export default function Login() {
           <Copyright sx={{ mt: 8, mb: 4 }} />
         </Container>
       </ThemeProvider>
-    </>
+    </React.Fragment>
   );
 }
