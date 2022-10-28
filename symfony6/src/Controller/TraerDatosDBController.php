@@ -2,17 +2,13 @@
 
 namespace App\Controller;
 
-use App\Entity\Persona;
-use App\Repository\PersonaRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
-use SebastianBergmann\Environment\Console;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
 /**
  * @Route("/datos/personas", name="datos")
  */
@@ -21,12 +17,12 @@ class TraerDatosDBController extends AbstractController
 {
     // es posible omitir el entityManager
     private $entityManager;
-    private $PersonaRepository;
+    private $UserRepository;
 
-    public function __construct(EntityManagerInterface $entityManager, PersonaRepository $PersonaRepository)
+    public function __construct(EntityManagerInterface $entityManager, UserRepository $UserRepository)
     {
         $this->entityManager = $entityManager;
-        $this->PersonaRepository = $PersonaRepository;
+        $this->UserRepository = $UserRepository;
     }
 
     /**
@@ -35,14 +31,13 @@ class TraerDatosDBController extends AbstractController
 
     public function index()
     {
-        $todos = $this->PersonaRepository->findAll();
+        $todos = $this->UserRepository->findAll();
 
         $array = [];
         foreach ($todos as $todo) {
             $array[] = $todo->toArray();
         }
-
-        return $this->json($array[0]);
+        return $this->json($array); 
     }
 
      /**
