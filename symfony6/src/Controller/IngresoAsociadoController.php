@@ -5,17 +5,14 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use AppBundle\Entity\Post;
 
-class LoginController extends AbstractController
+class IngresoAsociadoController extends AbstractController
 {
-    #[Route('/login', name: 'app_login')]
+    #[Route('/ingreso-asociado', name: 'app_ingreso_asociado')]
     public function index(): Response
     {
         return $this->render('index/index.html.twig', [
-            'controller_name' => 'LoginController',
+            'controller_name' => 'IngresoAsociadoController',
         ]);
     }
-
-
 }
