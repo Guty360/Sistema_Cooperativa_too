@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
- * @Route("/prueba/envio", name="datos")
+ * @Route("/api/registro", name="datos")
  */
 
 class RegistrationController extends AbstractController
@@ -29,14 +29,14 @@ class RegistrationController extends AbstractController
     }
 
     /**
-     * @Route("/read", name="index2")
+     * @Route("/usuario", name="index2")
      */
     public function index(Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
         //Haciendo el seteo del nuevo usuario, a la base de datos
         $user = new User();
-        $plaintextPassword = '1000';
-        $email = 'jmge@gmail.com';
+        $plaintextPassword = 'kkboris';
+        $email = 'fabio@gmail.com';
 
         $hashedPassword = $passwordHasher->hashPassword(
             $user,
