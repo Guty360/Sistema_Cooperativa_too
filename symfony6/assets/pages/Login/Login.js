@@ -1,4 +1,6 @@
+
 import React from 'react';
+import axios from 'axios';
 import {
   Avatar,
   Button,
@@ -10,7 +12,7 @@ import {
   Typography,
   Container,
 } from '@mui/material';
-import { Handshake } from '@mui/icons-material';
+import { Handshake, Php } from '@mui/icons-material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Formik, Form, ErrorMessage } from 'formik';
 import AlertComp from '../../components/Alert';
@@ -49,9 +51,15 @@ const validate = (value) => {
   return error;
 };
 
+    /**
+     * @Route("/obtener", name="index")
+     */
+
 const submit = (value, { resetForm }) => {
   resetForm();
-  console.log(value);
+
+  Obtener(); //asignacion de metodo al boton
+  enviar(value.email, value.password);
 };
 
 export default function Login() {
@@ -128,11 +136,14 @@ export default function Login() {
                     type='submit'
                     fullWidth
                     variant='contained'
+                    id='boton1'
+                  
                     sx={{
                       marginTop: 3,
                       marginBottom: 2,
                       backgroundColor: '#ff7334',
                     }}
+                    
                   >
                     Sign In
                   </Button>
