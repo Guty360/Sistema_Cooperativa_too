@@ -35,8 +35,8 @@ class RegistrationController extends AbstractController
     {
         //Haciendo el seteo del nuevo usuario, a la base de datos
         $user = new User();
-        $plaintextPassword = 'kkboris';
-        $email = 'fabio@gmail.com';
+        $plaintextPassword = 'valores';
+        $email = 'jmge123@gmail.com';
 
         $hashedPassword = $passwordHasher->hashPassword(
             $user,
@@ -49,8 +49,7 @@ class RegistrationController extends AbstractController
         $user->setEmail($email);
         $this->em->persist($user);
         $this->em->flush();
-
-
+        
         return $this->render('index/index.html.twig', []);
     }
 }

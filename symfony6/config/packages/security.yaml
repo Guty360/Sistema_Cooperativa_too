@@ -21,6 +21,8 @@ security:
                 # login_path: app_login    ------>es de prueba cuando se usa un from local no tocar
                 check_path: app_login
                 # enable_csrf: true        ------>es de prueba cuando se usa un from local no tocar
+            logout:
+                path: app_logout
 
         #----------------------- No tocar esta funcion-----------------------
         # api_login:
