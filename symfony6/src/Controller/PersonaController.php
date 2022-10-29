@@ -19,7 +19,9 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
-//require 'vendor/autolaod.php';
+//require 'vendor/phpmailer/phpmailer/src/Exception.php';
+//require 'vendor/phpmailer/phpmailer/src/PHPMailer.php';
+//require 'vendor/phpmailer/phpmailer/src/SMTP.php';
 
 class PersonaController extends AbstractController
 {
@@ -75,34 +77,39 @@ class PersonaController extends AbstractController
                 'data' => $personaAsArray
             ]);
             //Create an instance; passing `true` enables exceptions
-            /*$mail = new PHPMailer(true);
+            $mail = new PHPMailer(true);
+            $charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            $cad = "";
+            for($i =0; $i<10; $i++){
+                $cad .= substr($charset, rand(0, 61), 1);
+            }
             try {
                 //Server settings
-                $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+                //$mail->SMTPDebug = SMTP::DEBUG_SERVER;
                 $mail->isSMTP();              
-                $mail->Host       = 'smtp-relay.gmail.com';
+                $mail->Host       = 'smtp.gmail.com';
                 $mail->SMTPAuth   = true;
                 $mail->Username   = 'or030500@gmail.com';
                 $mail->Password   = 'qltrdggzrspiymxc';
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-                $mail->Port       = 587;
+                $mail->Port       = 465;
                 //Recipients
-                $mail->setFrom('or030500@gmail.com', 'Te envio un correo');
-                $mail->addAddress('sicosocial03@gmail.com', 'Recibo correo');
-                $mail->addCC('sicosocial03@gmail.com');
+                $mail->setFrom('or030500@gmail.com', 'Bot de codigos.');
+                $mail->addAddress($correo, 'Asociado');
+                $mail->addCC($correo);
                 
                 //Content
                 $mail->isHTML(true);
-                $mail->Subject = 'Here is the subject';
-                $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+                $mail->Subject = 'Codigo de acceso a su cuenta.';
+                $mail->Body    = $cad;
                 $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
                 $mail->send();
-                echo 'Message has been sent';
+                echo 'Message has been sent.';
 
             } catch (Exception $e) {
                 echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-            }*/
+            }
             return $response;
         }
         
