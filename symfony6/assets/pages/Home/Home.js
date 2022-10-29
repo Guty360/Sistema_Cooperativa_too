@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography, Link, Button } from '@mui/material';
 import '../../styles/components/Image.css';
 import Navbar from '../../components/Navbar/Navbar';
 function HomeComp() {
@@ -22,11 +22,20 @@ function HomeComp() {
             xs={4}
             sm={4}
             md={6}
-            sx={{ width: { xs: '100%', md: '50%' } }}
+            sx={{ width: '50vw', height: '70vh' }}
           >
-            <Typography variant='h2' color='white'>
-              Asociate con nosotros
-            </Typography>
+            <Link underline='none' hrefgit='/ingreso-asociado'>
+              <Typography variant='h2' color='white' sx={{ mt: 5 }}>
+                Asociate con nosotros
+              </Typography>
+            </Link>
+            <Button
+              variant='contained'
+              href='/ingreso-asociado'
+              sx={{ background: '#ff7334' }}
+            >
+              Registro asociado
+            </Button>
           </Grid>
           <Grid
             item

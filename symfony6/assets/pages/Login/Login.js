@@ -16,6 +16,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Formik, Form, ErrorMessage } from 'formik';
 import AlertComp from '../../components/Alert';
 import { reEmail } from '../../utilities/regularExpression';
+
+import { urlApi } from '../../utilities/url';
+import { postLogin } from '../../services/login';
 function Copyright(props) {
   return (
     <Typography
@@ -52,18 +55,7 @@ const validate = (value) => {
 
 const submit = (value, { resetForm }) => {
   resetForm();
-  axios
-    .post('http://127.0.0.1:8000/login', {
-      username: value.email,
-      password: value.password,
-    })
-    .then((response) => {
-      if (response.status == '200') alert('Estas autentificado');
-    })
-    .catch(function (error) {
-      alert(error);
-    });
-  enviar(value.email, value.password);
+  postLogin(value.email, value.password);
 };
 
 export default function Login() {

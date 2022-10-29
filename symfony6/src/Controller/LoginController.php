@@ -11,14 +11,9 @@ use App\Entity\User;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 //-------Fin de las nuevas librerias
 
-//  /**
-//   * @Route("/login/datos", name="applogin")
-//   */
 class LoginController extends AbstractController
 {
-    // /**
-    //  * @Route("/verificado", name="verificadoConfirmado")
-    //  */
+
     #[Route('/login', name: 'app_login')]
     public function index(#[CurrentUser] ?User $user): Response
     {

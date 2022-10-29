@@ -35,8 +35,8 @@ class RegistrationController extends AbstractController
     {
         //Haciendo el seteo del nuevo usuario, a la base de datos
         $user = new User();
-        $plaintextPassword = 'kkboris';
-        $email = 'fabio@gmail.com';
+        $plaintextPassword = '123456';
+        $email = 'fabioflores@gmail.com';
 
         $hashedPassword = $passwordHasher->hashPassword(
             $user,
