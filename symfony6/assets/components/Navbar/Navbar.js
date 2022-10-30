@@ -17,7 +17,7 @@ function Navbar() {
       values: {
         xs: 0,
         sm: 600,
-        md: 970,
+        md: 998,
         lg: 1200,
         xl: 1536,
       },

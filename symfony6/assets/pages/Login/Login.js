@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import {
   Avatar,
   Button,
@@ -10,10 +11,14 @@ import {
   Typography,
   Container,
 } from '@mui/material';
-import { Handshake } from '@mui/icons-material';
+import { Handshake, Php } from '@mui/icons-material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Formik, Form, ErrorMessage } from 'formik';
 import AlertComp from '../../components/Alert';
+import { reEmail } from '../../utilities/regularExpression';
+
+import { urlApi } from '../../utilities/url';
+import { postLogin } from '../../services/login';
 function Copyright(props) {
   return (
     <Typography
@@ -40,7 +45,7 @@ const validate = (value) => {
   if (!value.email) {
     error.email = 'Debes ingresar un correo';
   } else if (!reEmail.test(value.email)) {
-    error.email = 'El correo en invalido';
+    error.email = 'El correo en inválido';
   }
 
   // Validacion password
@@ -50,15 +55,12 @@ const validate = (value) => {
 
 const submit = (value, { resetForm }) => {
   resetForm();
-  console.log(value);
+  postLogin(value.email, value.password);
 };
-const reEmail =
-  // eslint-disable-next-line no-useless-escape
-  /^(([^<>()\[\]\.,;:\s@\”]+(\.[^<>()\[\]\.,;:\s@\”]+)*)|(\”.+\”))@(([^<>()[\]\.,;:\s@\”]+\.)+[^<>()[\]\.,;:\s@\”]{2,})$/;
 
 export default function Login() {
   return (
-    <>
+    <React.Fragment>
       <ThemeProvider theme={theme}>
         <Container component='main' maxWidth='xs' sx={{ marginTop: 25 }}>
           <CssBaseline />
@@ -130,6 +132,7 @@ export default function Login() {
                     type='submit'
                     fullWidth
                     variant='contained'
+                    id='boton1'
                     sx={{
                       marginTop: 3,
                       marginBottom: 2,
@@ -157,6 +160,6 @@ export default function Login() {
           <Copyright sx={{ mt: 8, mb: 4 }} />
         </Container>
       </ThemeProvider>
-    </>
+    </React.Fragment>
   );
 }

@@ -96,4 +96,5 @@ class ForgotController extends AbstractController
         }
         
     }
+
 }
