@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 /*Librerias de prueba*/
-
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\User;
 /*Librerias de prueba*/
@@ -35,8 +33,11 @@ class RegistrationController extends AbstractController
     {
         //Haciendo el seteo del nuevo usuario, a la base de datos
         $user = new User();
-        $plaintextPassword = 'valores';
-        $email = 'jmge123@gmail.com';
+
+        $datos = json_decode($request->getContent());
+
+        $plaintextPassword = $datos->{'password'};
+        $username = $datos->{'username'};
 
         $hashedPassword = $passwordHasher->hashPassword(
             $user,
@@ -46,10 +47,10 @@ class RegistrationController extends AbstractController
         //Metodos del seteo de la base de datos de la tabla(entidad user)
         $user->setPassword($hashedPassword);
         $user->setRoles(['ROLE_USER']);
-        $user->setEmail($email);
+        $user->setEmail($username);
         $this->em->persist($user);
         $this->em->flush();
-        
+    
         return $this->render('index/index.html.twig', []);
     }
 }
