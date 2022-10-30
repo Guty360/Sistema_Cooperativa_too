@@ -34,6 +34,7 @@ class PersonaController extends AbstractController
         $personaAsArray = [];
         foreach ($personas as $persona) {
             $personaAsArray[] = [
+                //Solo se han colocado estos atributos para prueba, se pueden mandar a llamar a todos los atributos de la entidad
                 'id' => $persona->getId(),
                 'nombre' => $persona->getPrimerNombre(),
                 'correo' => $persona->getCorreo()
@@ -48,7 +49,7 @@ class PersonaController extends AbstractController
         return $response;
     }
     /**
-     * @Route("/olvida", name="encuentra_personas")
+     * @Route("/olvidaaa", name="encuentra_personas")
      */
     public function olvida(Request $request, PersonaRepository $personaRepository){
         $correo = $request->get('correo', null);
@@ -78,6 +79,7 @@ class PersonaController extends AbstractController
             ]);
             //Create an instance; passing `true` enables exceptions
             $mail = new PHPMailer(true);
+            //Se crea la generacion aleatoria de codigo de acceso
             $charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             $cad = "";
             for($i =0; $i<10; $i++){
