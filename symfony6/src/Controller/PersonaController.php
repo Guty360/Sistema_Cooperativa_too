@@ -97,8 +97,8 @@ class PersonaController extends AbstractController
                 $mail->Port       = 465;
                 //Recipients
                 $mail->setFrom('or030500@gmail.com', 'Bot de codigos.');
-                $mail->addAddress($correo, 'Asociado');
-                $mail->addCC($correo);
+                $mail->addAddress('lr18062@ues.edu.sv', 'Asociado');
+                $mail->addCC('lr18062@ues.edu.sv');
                 
                 //Content
                 $mail->isHTML(true);

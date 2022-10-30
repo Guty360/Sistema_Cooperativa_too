@@ -27,6 +27,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $pass_temporal = null;
+
     /**
      * @param $id
      * @param $email
@@ -113,6 +116,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function toArray()
     {
     return ['password' => $this->password];
+    }
+
+    public function getPassTemporal(): ?string
+    {
+        return $this->pass_temporal;
+    }
+
+    public function setPassTemporal(?string $pass_temporal): self
+    {
+        $this->pass_temporal = $pass_temporal;
+
+        return $this;
     }
 
 

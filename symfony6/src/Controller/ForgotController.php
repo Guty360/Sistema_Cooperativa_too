@@ -5,12 +5,13 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\PersonaRepository;
+use App\Repository\UserRepository;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Persona;
+use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
 use SebastianBergmann\Environment\Console;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -31,20 +32,19 @@ class ForgotController extends AbstractController
     /**
      * @Route("/olvida", name="olvida_pass")
      */
-    public function olvida(Request $request, PersonaRepository $personaRepository){
+    public function olvida(Request $request, UserRepository $userRepository){
         $correo = $request->get('correo', null);
-        $personaAsArray = [];
-        $personas = $personaRepository->findAll();
-        foreach ($personas as $persona) {
-            if($correo == $persona->getCorreo() || $correo == $persona->getCelular()){
-                $personaAsArray[] = [
-                    'id' => $persona->getId(),
-                    'nombre' => $persona->getPrimerNombre(),
-                    'correo' => $persona->getCorreo()
+        $userAsArray = [];
+        $users = $userRepository->findAll();
+        foreach ($users as $user) {
+            if($correo == $user->getEmail()){
+                $userAsArray[] = [
+                    'id' => $user->getId(),
+                    'correo' => $user->getEmail()
                 ];
             }
         };
-        if(empty($personaAsArray)){
+        if(empty($userAsArray)){
             $response = new JsonResponse();
             $response->setData([
                 'encontrado' => false,
@@ -55,7 +55,7 @@ class ForgotController extends AbstractController
             $response = new JsonResponse();
             $response->setData([
                 'encontrado' => true,
-                'data' => $personaAsArray
+                'data' => $userAsArray
             ]);
             //Create an instance; passing `true` enables exceptions
             $mail = new PHPMailer(true);
