@@ -28,12 +28,13 @@ class ForgotController extends AbstractController
             'controller_name' => 'ForgotController',
         ]);
     }
-
+    //Funcion para enviar al correo la contrasenia temporal
     /**
      * @Route("/olvida", name="olvida_pass")
      */
-    public function olvida(Request $request, UserRepository $userRepository){
-        $correo = $request->get('correo', null);
+    public function olvida(Request $request, UserRepository $userRepository, EntityManagerInterface $em){
+        $datos = json_decode($request->getContent());
+        $correo = $datos->{'correo'};
         $userAsArray = [];
         $users = $userRepository->findAll();
         foreach ($users as $user) {
@@ -57,7 +58,7 @@ class ForgotController extends AbstractController
                 'encontrado' => true,
                 'data' => $userAsArray
             ]);
-            //Create an instance; passing `true` enables exceptions
+            //Comienzo de la generacion del correo
             $mail = new PHPMailer(true);
             //Se crea la generacion aleatoria de codigo de acceso
             $charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -66,8 +67,7 @@ class ForgotController extends AbstractController
                 $cad .= substr($charset, rand(0, 61), 1);
             }
             try {
-                //Server settings
-                //$mail->SMTPDebug = SMTP::DEBUG_SERVER;
+                //Configuracion del bot para enviar correo
                 $mail->isSMTP();              
                 $mail->Host       = 'smtp.gmail.com';
                 $mail->SMTPAuth   = true;
@@ -75,19 +75,29 @@ class ForgotController extends AbstractController
                 $mail->Password   = 'qltrdggzrspiymxc';
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
                 $mail->Port       = 465;
-                //Recipients
+                //Quien envia el correo
                 $mail->setFrom('or030500@gmail.com', 'Bot de codigos.');
+                //Quien recibe el correo
                 $mail->addAddress($correo, 'Asociado');
                 $mail->addCC($correo);
                 
-                //Content
+                //Contenido del correo
                 $mail->isHTML(true);
                 $mail->Subject = 'Codigo de acceso a su cuenta.';
                 $mail->Body    = $cad;
                 $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-
+                //Envio del correo
                 $mail->send();
                 echo 'Message has been sent.';
+
+                //Agregando la contrasena temporal en el registro de los datos del usuario
+                $userRepo = $em->getRepository("App\Entity\User");
+                $usuario = $userRepo->findOneBy(['email'=>$correo]);
+                if($usuario instanceOf User){
+                    $usuario->setPassTemporal($cad);
+                    $em->persist($usuario);
+                    $em->flush();
+                }
 
             } catch (Exception $e) {
                 echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
@@ -96,5 +106,5 @@ class ForgotController extends AbstractController
         }
         
     }
-
+    
 }

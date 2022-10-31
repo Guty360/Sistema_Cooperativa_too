@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20221030164038 extends AbstractMigration
+final class Version20221031203417 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -43,7 +43,7 @@ final class Version20221030164038 extends AbstractMigration
         $this->addSql('CREATE TABLE nit (id INT AUTO_INCREMENT NOT NULL, documento4_id INT NOT NULL, UNIQUE INDEX UNIQ_5E5F5AF3C19898DD (documento4_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE nup (id INT AUTO_INCREMENT NOT NULL, documento5_id INT NOT NULL, UNIQUE INDEX UNIQ_BF45C3B77924FFB8 (documento5_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE pasaporte (id INT AUTO_INCREMENT NOT NULL, documento6_id INT NOT NULL, UNIQUE INDEX UNIQ_AFAAF3966B915056 (documento6_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE persona (id INT AUTO_INCREMENT NOT NULL, primer_nombre VARCHAR(255) NOT NULL, segundo_nombre VARCHAR(255) NOT NULL, tercer_nombre VARCHAR(255) NOT NULL, primer_apellido VARCHAR(255) NOT NULL, apellido_casada VARCHAR(255) NOT NULL, celular VARCHAR(255) NOT NULL, correo VARCHAR(255) NOT NULL, edad INT NOT NULL, fecha_nacimiento DATE NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE persona (id INT AUTO_INCREMENT NOT NULL, primer_nombre VARCHAR(255) NOT NULL, segundo_nombre VARCHAR(255) NOT NULL, tercer_nombre VARCHAR(255) NOT NULL, primer_apellido VARCHAR(255) NOT NULL, apellido_casada VARCHAR(255) NOT NULL, celular VARCHAR(255) NOT NULL, correo VARCHAR(255) NOT NULL, edad INT NOT NULL, fecha_nacimiento VARCHAR(255) NOT NULL, segundo_apellido VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE referencia (id INT AUTO_INCREMENT NOT NULL, persona_id INT DEFAULT NULL, asociado_id INT DEFAULT NULL, tipo_referencia VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_C01213D8F5F88DB9 (persona_id), INDEX IDX_C01213D8716CD091 (asociado_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE solicitud (id INT AUTO_INCREMENT NOT NULL, codigo VARCHAR(255) NOT NULL, estado_solicitud TINYINT(1) NOT NULL, fecha_envio DATE NOT NULL, fecha_ingreso DATE NOT NULL, solicitud_firmada VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE tarjeta_iva (id INT AUTO_INCREMENT NOT NULL, documento1_id INT DEFAULT NULL, UNIQUE INDEX UNIQ_FEF0BA7EF64668EF (documento1_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
