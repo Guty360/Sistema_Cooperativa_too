@@ -10,6 +10,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './styles/app.css';
 import './bootstrap';
 import Ingreso from './pages/Ingreso-Asociado/Ingreso';
+import Registrar from './pages/Registrar/Registrar';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path='/login' element={<Login />}></Route>
         <Route path='/forgot' element={<Forgot />}></Route>
         <Route path='/ingreso-asociado' element={<Ingreso />}></Route>
+        <Route path='/registrar' element={<Registrar />}></Route>
       </Routes>
     </BrowserRouter>
   );

@@ -13,10 +13,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-/**
- * @Route("/api/registro", name="datos")
- */
 
+//   @Route("/registrar", name:"datos");
+ 
+#[Route('/registrar', name: 'app_registrar')]
 class RegistrationController extends AbstractController
 {
     private $em;
@@ -28,9 +28,9 @@ class RegistrationController extends AbstractController
         $this->em = $em;
     }
 
-    /**
-     * @Route("/usuario", name="index2")
-     */
+    // /**
+    //  * @Route("/usuario", name="index2")
+    //  */
     public function index(Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
         //Haciendo el seteo del nuevo usuario, a la base de datos
