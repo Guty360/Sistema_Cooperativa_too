@@ -32,15 +32,17 @@ class RegistrationController extends AbstractController
     */
     public function index(Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
-
+        $plaintextPassword = '';
+        $username = ''; 
+        $datos = json_decode($request->getContent());
         //Haciendo el seteo del nuevo usuario, a la base de datos
         $user = new User();
 
-        $datos = json_decode($request->getContent());
-
-        $plaintextPassword = $datos->{'password'};
-        $username = $datos->{'username'};
-
+        if($plaintextPassword && $username){
+            
+            $plaintextPassword = $datos->{'password'};
+            $username = $datos->{'username'};
+        }
         $hashedPassword = $passwordHasher->hashPassword(
             $user,
             $plaintextPassword

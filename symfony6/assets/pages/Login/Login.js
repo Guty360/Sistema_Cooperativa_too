@@ -55,7 +55,17 @@ const validate = (value) => {
 
 const submit = (value, { resetForm }) => {
   resetForm();
-  postLogin(value.email, value.password);
+  axios
+    .post(`${urlApi}/login`, {
+      username: value.email,
+      password: value.password,
+    })
+    .then((response) => {
+      if (response.status == '200') alert('Estas autentificado');
+    })
+    .catch(function (error) {
+      alert(error);
+    });
 };
 
 export default function Login() {
@@ -148,7 +158,7 @@ export default function Login() {
                       </Link>
                     </Grid>
                     <Grid item>
-                      <Link href='#' variant='body2' color='#16382c'>
+                      <Link href='/registro' variant='body2' color='#16382c'>
                         {'¿No tienes una cuenta? Registrate'}
                       </Link>
                     </Grid>

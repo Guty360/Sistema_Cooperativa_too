@@ -14,9 +14,11 @@ use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 class LoginController extends AbstractController
 {
-
-    #[Route('/login', name: 'app_login')]
-    public function index(#[CurrentUser] ?User $user): Response
+    // /**
+    //  * @Route("/verificado", name="verificadoConfirmado")
+    //  */
+    #[Route('/login', name: 'app_login')]   
+    public function index(#[CurrentUser] ?User $user, Request $request): Response
     {
         $datosxd = json_decode($request->getContent());
         
