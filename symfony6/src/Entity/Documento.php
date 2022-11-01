@@ -16,9 +16,6 @@ class Documento
     #[ORM\Column(length: 255)]
     private ?string $numero = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $fotocopia = null;
-
     #[ORM\OneToOne(mappedBy: 'Documento3', cascade: ['persist', 'remove'])]
     private ?ISSS $iSSS = null;
 
@@ -37,6 +34,9 @@ class Documento
     #[ORM\OneToOne(mappedBy: 'Documento8', cascade: ['persist', 'remove'])]
     private ?HojaLegal $hojaLegal = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $fotocopia = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -50,18 +50,6 @@ class Documento
     public function setNumero(string $numero): self
     {
         $this->numero = $numero;
-
-        return $this;
-    }
-
-    public function getFotocopia(): ?string
-    {
-        return $this->fotocopia;
-    }
-
-    public function setFotocopia(string $fotocopia): self
-    {
-        $this->fotocopia = $fotocopia;
 
         return $this;
     }
@@ -164,6 +152,18 @@ class Documento
         }
 
         $this->hojaLegal = $hojaLegal;
+
+        return $this;
+    }
+
+    public function getFotocopia(): ?string
+    {
+        return $this->fotocopia;
+    }
+
+    public function setFotocopia(?string $fotocopia): self
+    {
+        $this->fotocopia = $fotocopia;
 
         return $this;
     }
