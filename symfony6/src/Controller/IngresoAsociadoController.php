@@ -12,6 +12,7 @@ use App\Entity\NUP;
 use App\Entity\ISSS;
 use App\Entity\CarnetMinoridad;
 use App\Entity\Pasaporte;
+use App\Entity\NIT;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -111,7 +112,7 @@ class IngresoAsociadoController extends AbstractController
         $em->persist($documentoNit);
         $em->flush();
         $nit = new NIT();
-        $nit->setDocumento2($documentoNit);
+        $nit->setDocumento4($documentoNit);
         $em->persist($nit);
         $em->flush();
         //carnet menoridad
@@ -120,7 +121,7 @@ class IngresoAsociadoController extends AbstractController
         $em->persist($documentoMinoridad);
         $em->flush();
         $carnetMenor = new CarnetMinoridad();
-        $carnetMenor->setDocumento2($documentoMinoridad);
+        $carnetMenor->setDocumento7($documentoMinoridad);
         $em->persist($carnetMenor);
         $em->flush();
         //ISSS
@@ -129,7 +130,7 @@ class IngresoAsociadoController extends AbstractController
         $em->persist($documentoISSS);
         $em->flush();
         $isss = new ISSS();
-        $isss->setDocumento2($documentoISSS);
+        $isss->setDocumento3($documentoISSS);
         $em->persist($isss);
         $em->flush();
         //NUP
@@ -138,16 +139,16 @@ class IngresoAsociadoController extends AbstractController
         $em->persist($documentoNUP);
         $em->flush();
         $nup = new NUP();
-        $nup->setDocumento2($documentoNUP);
+        $nup->setDocumento5($documentoNUP);
         $em->persist($nup);
         $em->flush();
         //PASAPORTE
         $documentoPasaporte = new Documento();
-        $documentoNUP->setNumero($datos->{'pasaporte'});
+        $documentoPasaporte->setNumero($datos->{'pasaporte'});
         $em->persist($documentoPasaporte);
         $em->flush();
         $pasaporte = new Pasaporte();
-        $nup->setDocumento2($documentoPasaporte);
+        $pasaporte->setDocumento6($documentoPasaporte);
         $em->persist($pasaporte);
         $em->flush();
         

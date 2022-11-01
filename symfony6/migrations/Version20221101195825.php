@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20221031203417 extends AbstractMigration
+final class Version20221101195825 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -32,7 +32,7 @@ final class Version20221031203417 extends AbstractMigration
         $this->addSql('CREATE TABLE cuenta_ahorro (id INT AUTO_INCREMENT NOT NULL, cuenta_id INT DEFAULT NULL, UNIQUE INDEX UNIQ_14447F489AEFF118 (cuenta_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE cuenta_aportacion (id INT AUTO_INCREMENT NOT NULL, cuenta_id INT NOT NULL, UNIQUE INDEX UNIQ_F60DF0BF9AEFF118 (cuenta_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE direccion (id INT AUTO_INCREMENT NOT NULL, ubicaciongeografica_id INT DEFAULT NULL, alquila TINYINT(1) NOT NULL, residencia VARCHAR(255) NOT NULL, calle VARCHAR(255) NOT NULL, numero_casa VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_F384BE95FFC22FF3 (ubicaciongeografica_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE documento (id INT AUTO_INCREMENT NOT NULL, numero VARCHAR(255) NOT NULL, fotocopia VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE documento (id INT AUTO_INCREMENT NOT NULL, numero VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE dui (id INT AUTO_INCREMENT NOT NULL, documento2_id INT DEFAULT NULL, UNIQUE INDEX UNIQ_D6B9EEA1E4F3C701 (documento2_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE estado_familiar (id INT AUTO_INCREMENT NOT NULL, conyuge_id INT DEFAULT NULL, estado_civil VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_7BC279B3314923D (conyuge_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE estudio_socio_economico (id INT AUTO_INCREMENT NOT NULL, capacidad_ahorro DOUBLE PRECISION NOT NULL, gastos_medicos DOUBLE PRECISION NOT NULL, gastos_credito DOUBLE PRECISION NOT NULL, gastos_educacion DOUBLE PRECISION NOT NULL, gastos_fijos DOUBLE PRECISION NOT NULL, otros_ingresos DOUBLE PRECISION NOT NULL, gastos_personales DOUBLE PRECISION NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
