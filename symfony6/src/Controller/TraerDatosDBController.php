@@ -62,6 +62,7 @@ class TraerDatosDBController extends AbstractController
                 'data' => $datos,
             ]));
         }
+        
         return $response->send();
     }
 
