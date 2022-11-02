@@ -49,7 +49,7 @@ export default function Forgot() {
       correo: data.get('email'),
     })
     .then((response) => {
-      if (response.status == '200') alert('Estas ha enviado un código');
+      if (response.status == '200') alert('Se ha enviado un código al correo especificado');
     })
     .catch(function (error) {
       alert(error);
