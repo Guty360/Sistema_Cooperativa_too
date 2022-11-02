@@ -13,6 +13,8 @@ use App\Entity\ISSS;
 use App\Entity\CarnetMinoridad;
 use App\Entity\Pasaporte;
 use App\Entity\NIT;
+use App\Entity\UbicacionGeografica;
+use App\Entity\Direccion;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -152,6 +154,28 @@ class IngresoAsociadoController extends AbstractController
         $em->persist($pasaporte);
         $em->flush();
         
+        //FIN DE LA PRIMERA FASE DE INGRESO
+        //FASE DE LA UBICACION DEL HOGAR
+        $ubicacionG =  new UbicacionGeografica();
+        $ubicacionG->setPais($datos->{'pais'});
+        $ubicacionG->setRegion($datos->{'region'});
+        $ubicacionG->setSubRegion($datos->{'subRegion'});
+        $ubicacionG->setLatitud($datos->{'latitud'});
+        $ubicacionG->setLongitud($datos->{'longitud'});
+        $em->persist($ubicacionG);
+        $em->flush();
+
+        $direccion = new Direccion();
+        $direccion->setResidencia($datos->{'residencia'});
+        $direccion->setAlquila($datos->{'alquila'});
+        $direccion->setCalle($datos->{'calle'});
+        $direccion->setNumeroCasa($datos->{'numeroCasa'});
+        $direccion->setUbicaciongeografica($ubicacionG);
+        $em->persist($direccion);
+        $em->flush();
+        //SE LE ADICIONA LA INFORMACION DE DIRECCION A ASOCIADO
+        $asociado->setDireccion($direccion);
+        //FIN DE VISTA DE UBICACION
         //Impresion del json previamente tomado por post
         if(!$datos)
         {
