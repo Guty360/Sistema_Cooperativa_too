@@ -30,6 +30,9 @@ class RegistroController extends AbstractController
     }
 
     #[Route('/registro/usuario', name: 'app_registro_usuario',methods:['POST'])]
+    /**
+     * @Route("/registro/usuarios", name="registrar")
+     */
     public function registrar(Request $request, UserPasswordHasherInterface $passwordHasher): Response{
         
         $datos = json_decode($request->getContent());
