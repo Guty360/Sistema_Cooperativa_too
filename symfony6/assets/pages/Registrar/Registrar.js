@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import {
   Avatar,
@@ -16,12 +16,11 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Formik, Form, ErrorMessage } from 'formik';
 import AlertComp from '../../components/Alert';
 import { reEmail, numberPhone } from '../../utilities/regularExpression';
-
 import { TextMaskDate } from '../../utilities/mask';
-
 import { urlApi } from '../../utilities/url';
 import { postLogin } from '../../services/login';
 import Copyright from '../../components/Copytight';
+import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme();
 const validate = (value) => {
@@ -45,25 +44,32 @@ const validate = (value) => {
   return error;
 };
 
-const submit = (value, { resetForm }) => {
-  //resetForm();
-  axios
-    .post(`${urlApi}/registro/usuario`, {
-      username: value.email,
-      name: value.nombres,
-      lastName: value.apellidos,
-      dateBirth: value.fechaNac,
-      phone: value.tel,
-    })
-    .then((response) => {
-      if (response.status == '200') alert('Credenciales enviadas');
-    })
-    .catch(function (error) {
-      alert(error);
-    });
-};
-
 export default function Registrar() {
+  const navigate = useNavigate();
+  const [error, setError] = useState();
+  const submit = (value, { resetForm }) => {
+    setError('');
+    resetForm();
+    axios
+      .post(`${urlApi}/registro/usuario`, {
+        username: value.email,
+        name: value.nombres,
+        lastName: value.apellidos,
+        dateBirth: value.fechaNac,
+        phone: value.tel,
+      })
+      .then((response) => {
+        if (response.status == '200')
+          alert(
+            'Credenciales enviadas, rebice su correo electrónico para código de validación'
+          );
+        navigate('/login');
+      })
+      .catch(function (error) {
+        setError(error.message);
+      });
+  };
+
   return (
     <React.Fragment>
       <ThemeProvider theme={theme}>
@@ -86,6 +92,7 @@ export default function Registrar() {
             <Typography component='h1' variant='h4' sx={{ color: '#ff7334' }}>
               Registrate
             </Typography>
+            {error && <p>{error}</p>}
             <Formik
               initialValues={{
                 nombres: '',
