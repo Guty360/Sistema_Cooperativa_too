@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import {
   Avatar,
@@ -16,9 +16,10 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Formik, Form, ErrorMessage } from 'formik';
 import AlertComp from '../../components/Alert';
 import { reEmail } from '../../utilities/regularExpression';
-
 import { urlApi } from '../../utilities/url';
-import { postLogin } from '../../services/login';
+import { useAuth } from '../../Context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+
 function Copyright(props) {
   return (
     <Typography
@@ -53,22 +54,34 @@ const validate = (value) => {
   return error;
 };
 
-const submit = (value, { resetForm }) => {
-  resetForm();
-  axios
-    .post(`${urlApi}/login`, {
-      username: value.email,
-      password: value.password,
-    })
-    .then((response) => {
-      if (response.status == '200') alert('Estas autentificado');
-    })
-    .catch(function (error) {
-      alert(error);
-    });
-};
-
 export default function Login() {
+  //Designar el loggeo del usuario
+  const { user } = useAuth();
+  //Redireccionar al usuario
+  const navigate = useNavigate();
+  const [error, setError] = useState();
+
+  const submit = (value, { resetForm }) => {
+    resetForm();
+    setError('');
+    axios
+      .post(`${urlApi}/login`, {
+        username: value.email,
+        password: value.password,
+      })
+      .then((response) => {
+        if (response.status == '200') {
+          user.login = true;
+          navigate('/');
+        }
+      })
+      .catch(function (error) {
+        if (error.code === 'ERR_BAD_REQUEST')
+          setError('Correo y/o contraseña incorrecta');
+        else setError(error.code);
+      });
+  };
+
   return (
     <React.Fragment>
       <ThemeProvider theme={theme}>
@@ -91,6 +104,7 @@ export default function Login() {
             <Typography component='h1' variant='h4' sx={{ color: '#ff7334' }}>
               Iniciar Sesión
             </Typography>
+            {error && <p>{error}</p>}
             <Formik
               initialValues={{
                 email: '',

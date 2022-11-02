@@ -48,7 +48,7 @@ const validate = (value) => {
 const submit = (value, { resetForm }) => {
   //resetForm();
   axios
-    .post(`${urlApi}/registro`, {
+    .post(`${urlApi}/registro/usuario`, {
       username: value.email,
       name: value.nombres,
       lastName: value.apellidos,
