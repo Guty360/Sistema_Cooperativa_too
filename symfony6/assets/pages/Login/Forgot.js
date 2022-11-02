@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import {
   Avatar,
   Button,
@@ -13,6 +14,7 @@ import {
 import { Handshake } from '@mui/icons-material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ButtonComp from '../../components/Button';
+import { urlApi } from '../../utilities/url';
 
 function Copyright(props) {
   return (
@@ -40,7 +42,17 @@ export default function Forgot() {
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get('email'),
-      password: data.get('password'),
+    });
+
+    axios
+    .post(`${urlApi}/forgot`, {
+      correo: data.get('email'),
+    })
+    .then((response) => {
+      if (response.status == '200') alert('Estas ha enviado un código');
+    })
+    .catch(function (error) {
+      alert(error);
     });
   };
 
