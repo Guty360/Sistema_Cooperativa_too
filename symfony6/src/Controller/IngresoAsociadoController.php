@@ -15,6 +15,9 @@ use App\Entity\Pasaporte;
 use App\Entity\NIT;
 use App\Entity\UbicacionGeografica;
 use App\Entity\Direccion;
+use App\Entity\ActividadEconomica;
+use App\Entity\Negocio;
+use App\Entity\EstudioSocioEconomico;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -176,6 +179,73 @@ class IngresoAsociadoController extends AbstractController
         //SE LE ADICIONA LA INFORMACION DE DIRECCION A ASOCIADO
         $asociado->setDireccion($direccion);
         //FIN DE VISTA DE UBICACION
+
+        //ACTIVIDAD ECONOMICA
+        $actividadEconomicaEmpleado =  new ActividadEconomica();
+        $actividadEconomicaEmpleado->setEmpleado($datos->{'empleadoEmpleado'});
+        $actividadEconomicaEmpleado->setEmpresario($datos->{'empresarioEmpleado'});
+        $actividadEconomicaEmpleado->setProfesion($datos->{'profesionEmpleado'});
+        $actividadEconomicaEmpleado->setRubroActividadEconomica($datos->{'rubroEmpleado'});
+        $actividadEconomicaEmpleado->setSalario($datos->{'salarioEmpleado'});
+        $actividadEconomicaEmpleado->setConstanciaSalario($datos->{'constanciaSalarioEmpleado'});
+
+        //Empresario o emprendedor
+        $actividadEconomicaEmpresario =  new ActividadEconomica();
+        $actividadEconomicaEmpresario->setEmpleado($datos->{'empleadoEmpresario'});
+        $actividadEconomicaEmpresario->setEmpresario($datos->{'empresarioEmpresario'});
+        $actividadEconomicaEmpresario->setProfesion($datos->{'profesionEmpresario'});
+        $actividadEconomicaEmpresario->setRubroActividadEconomica($datos->{'rubroEmpresario'});
+        $actividadEconomicaEmpresario->setSalario($datos->{'salarioEmpresario'});
+        $actividadEconomicaEmpresario->setConstanciaSalario($datos->{'constanciaSalarioEmpresario'});
+
+        //Datos de la ubicacion del negocio
+        $ubicacionGEmpresario =  new UbicacionGeografica();
+        $ubicacionGEmpresario->setPais($datos->{'paisEmpresario'});
+        $ubicacionGEmpresario->setRegion($datos->{'regionEmpresario'});
+        $ubicacionGEmpresario->setSubRegion($datos->{'subRegionEmpresario'});
+        $ubicacionGEmpresario->setLatitud($datos->{'latitudEmpresario'});
+        $ubicacionGEmpresario->setLongitud($datos->{'longitudEmpresario'});
+        $em->persist($ubicacionGEmpresario);
+        $em->flush();
+
+        $direccionEmpresario = new Direccion();
+        $direccionEmpresario->setResidencia($datos->{'residenciaEmpresario'});
+        $direccionEmpresario->setAlquila($datos->{'alquilaEmpresario'});
+        $direccionEmpresario->setCalle($datos->{'calleEmpresario'});
+        $direccionEmpresario->setNumeroCasa($datos->{'numeroCasaEmpresario'});
+        $direccionEmpresario->setUbicaciongeografica($ubicacionGEmpresario);
+        $em->persist($direccionEmpresario);
+        $em->flush();
+
+        //Negocio
+        $negocio = new Negocio();
+        $negocio->setActividadEconomica($actividadEconomicaEmpresario);
+        $negocio->setDireccion($direccionEmpresario);
+        $negocio->setNombreLegal($datos->{'nombreLegal'});
+        $negocio->setNombreComercial($datos->{'nombreComercial'});
+        $negocio->setTelefono($datos->{'telefonoNegocio'});
+        $negocio->setCorreo($datos->{'correoNegocio'});
+        $em->persist($negocio);
+        $em->flush();
+        //Estudio socioeconomico
+        $estudioSocioEconomico = new EstudioSocioEconomico();
+        $estudioSocioEconomico->setCapacidadAhorro($datos->{'capacidadAhorro'});
+        $estudioSocioEconomico->setGastosMedicos($datos->{'gastosMedicos'});
+        $estudioSocioEconomico->setGastosCredito($datos->{'gastosCredito'});
+        $estudioSocioEconomico->setGastosEducacion($datos->{'gastosEducacion'});
+        $estudioSocioEconomico->setGastosFijos($datos->{'gastosFijos'});
+        $estudioSocioEconomico->setOtrosIngresos($datos->{'otrosIngresos'});
+        $estudioSocioEconomico->setGastosPersonales($datos->{'gastosPersonales'});
+        $em->persist($estudioSocioEconomico);
+        $em->flush();
+
+        //HACIENDO EL PERSIST PARA LAS DOS ENTIDADES DE EMPLEADO Y EMPRESARIO, YA QUE AMNBAS NECESITAN UN ESTUDIO SOCIOECONOMICO
+        $actividadEconomicaEmpleado->setEstudioSocioEconomico($estudioSocioEconomico);
+        $em->persist($actividadEconomicaEmpleado);
+        $em->flush();
+        $actividadEconomicaEmpresario->setEstudioSocioEconomico($estudioSocioEconomico);
+        $em->persist($actividadEconomicaEmpresario);
+        $em->flush();
         //Impresion del json previamente tomado por post
         if(!$datos)
         {
