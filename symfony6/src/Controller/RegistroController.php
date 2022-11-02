@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class RegistroController extends AbstractController
 {
@@ -21,10 +22,16 @@ class RegistroController extends AbstractController
     }
 
     #[Route('/registro', name: 'app_registro')]
-    public function index(Request $request, UserPasswordHasherInterface $passwordHasher): Response
+    public function index(): Response
     {
-        $plaintextPassword = null;
-        $username = null; 
+        return $this->render('index/index.html.twig', [
+            'controller_name' => 'RegistroController',
+        ]);
+    }
+
+    #[Route('/registro/usuario', name: 'app_registro_usuario',methods:['POST'])]
+    public function registrar(Request $request, UserPasswordHasherInterface $passwordHasher): Response{
+        
         $datos = json_decode($request->getContent());
         //Haciendo el seteo del nuevo usuario, a la base de datos
         $user = new User();
@@ -33,22 +40,29 @@ class RegistroController extends AbstractController
             return $this->render('index/index.html.twig', [
             ]);
         }
-        if($plaintextPassword != null && $username != nul){
-            $plaintextPassword = $datos->{'password'};
-            $username = $datos->{'username'};
-            $hashedPassword = $passwordHasher->hashPassword(
-            $user,
-            $plaintextPassword
-            );
+        
+        $plaintextPassword = $datos->{'password'};
+        $username = $datos->{'username'};
+        $hashedPassword = $passwordHasher->hashPassword($user,$plaintextPassword);
+        if($username && $plaintextPassword){
             //Metodos del seteo de la base de datos de la tabla(entidad user)
             $user->setPassword($hashedPassword);
             $user->setRoles(['ROLE_USER']);
             $user->setEmail($username);
             $this->em->persist($user);
             $this->em->flush();
+
+            $response = new Response();
+            return $response->send();
+        }else{
+            $response = new Response(Response::HTTP_NOT_FOUND);
+            return $response->send();
         }
-        return $this->render('index/index.html.twig', [
-            'controller_name' => 'RegistroController',
-        ]);
-    }
+        }
+        
+        
+
+
+        
+
 }

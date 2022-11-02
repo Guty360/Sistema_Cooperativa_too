@@ -10,8 +10,11 @@ import {
 } from '@mui/material';
 import { Handshake, Login } from '@mui/icons-material';
 import DrawerComp from './Drawer';
+import { useAuth } from '../../Context/AuthContext';
 export const navItems = ['Home', 'About', 'Contact Us'];
 function Navbar() {
+  const { user } = useAuth();
+
   const theme = createTheme({
     breakpoints: {
       values: {
@@ -83,33 +86,55 @@ function Navbar() {
                   </Button>
                 ))}
               </Box>
-              <Box sx={{ marginLeft: 'auto', marginTop: '40px' }}>
-                <Button
-                  className='boton-ingreso'
-                  sx={{
-                    background: '#16382c',
-                    margin: '5px',
-                    marginRight: '20px',
-                  }}
-                  variant='contained'
-                  href='/login'
-                >
-                  <Login sx={{ marginRight: '5px', color: '#fefefe' }} />
-                  Login
-                </Button>
-                <Button
-                  className='boton-ingreso'
-                  sx={{
-                    backgroundColor: '#ff7334',
-                    margin: '5px',
-                    marginRight: '50px',
-                  }}
-                  variant='contained'
-                  href='/registrar'
-                >
-                  Registrarse
-                </Button>
-              </Box>
+              {user.login ? (
+                <>
+                  <Box sx={{ marginLeft: 'auto', marginTop: '40px' }}>
+                    <Button
+                      className='boton-ingreso'
+                      sx={{
+                        background: '#ff7334',
+                        margin: '5px',
+                        marginRight: '20px',
+                      }}
+                      variant='contained'
+                      href='/logout'
+                    >
+                      <Login sx={{ marginRight: '5px', color: '#fefefe' }} />
+                      Logout
+                    </Button>
+                  </Box>
+                </>
+              ) : (
+                <>
+                  <Box sx={{ marginLeft: 'auto', marginTop: '40px' }}>
+                    <Button
+                      className='boton-ingreso'
+                      sx={{
+                        background: '#16382c',
+                        margin: '5px',
+                        marginRight: '20px',
+                      }}
+                      variant='contained'
+                      href='/login'
+                    >
+                      <Login sx={{ marginRight: '5px', color: '#fefefe' }} />
+                      Login
+                    </Button>
+                    <Button
+                      className='boton-ingreso'
+                      sx={{
+                        backgroundColor: '#ff7334',
+                        margin: '5px',
+                        marginRight: '50px',
+                      }}
+                      variant='contained'
+                      href='/registro'
+                    >
+                      Registrarse
+                    </Button>
+                  </Box>
+                </>
+              )}
             </>
           )}
         </Toolbar>
