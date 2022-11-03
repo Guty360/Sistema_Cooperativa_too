@@ -10,6 +10,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -20,12 +22,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private array $roles = [];
-
     /**
      * @var string The hashed password
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $pass_temporal = null;
 
     /**
      * @param $id
@@ -113,6 +117,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function toArray()
     {
     return ['password' => $this->password];
+    }
+
+    public function getPassTemporal(): ?string
+    {
+        return $this->pass_temporal;
+    }
+
+    public function setPassTemporal(?string $pass_temporal): self
+    {
+        $this->pass_temporal = $pass_temporal;
+
+        return $this;
     }
 
 

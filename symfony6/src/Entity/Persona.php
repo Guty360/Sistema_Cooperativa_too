@@ -39,8 +39,8 @@ class Persona
     #[ORM\Column]
     private ?int $edad = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $fechaNacimiento = null;
+    #[ORM\Column(length: 255)]
+    private ?string $fechaNacimiento = null;
 
     #[ORM\OneToOne(mappedBy: 'Persona', cascade: ['persist', 'remove'])]
     private ?Asociado $asociado = null;
@@ -53,6 +53,9 @@ class Persona
 
     #[ORM\OneToOne(mappedBy: 'Persona', cascade: ['persist', 'remove'])]
     private ?Referencia $referencia = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $segundoApellido = null;
 
     public function getId(): ?int
     {
@@ -155,12 +158,12 @@ class Persona
         return $this;
     }
 
-    public function getFechaNacimiento(): ?\DateTimeInterface
+    public function getFechaNacimiento(): ?string
     {
         return $this->fechaNacimiento;
     }
 
-    public function setFechaNacimiento(\DateTimeInterface $fechaNacimiento): self
+    public function setFechaNacimiento(string $fechaNacimiento): self
     {
         $this->fechaNacimiento = $fechaNacimiento;
 
@@ -254,4 +257,16 @@ class Persona
         {
         return [/*'id' => $this->getPrimerApellido(),*/  'correo' => $this->correo, /*'edad' => $this->edad*/];
         }
+
+    public function getSegundoApellido(): ?string
+    {
+        return $this->segundoApellido;
+    }
+
+    public function setSegundoApellido(string $segundoApellido): self
+    {
+        $this->segundoApellido = $segundoApellido;
+
+        return $this;
+    }
     }

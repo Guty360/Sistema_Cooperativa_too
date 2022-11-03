@@ -75,8 +75,8 @@ export default function Forgot() {
             align='justify'
             sx={{ color: '#16382c', fontWeight: '405' }}
           >
-            Ingresa tu número de telefono o correo para recibir un código de
-            recuperación de contraseña
+            Ingresa tu correo para recibir un código de recuperación de
+            contraseña
           </Typography>
           <Box
             component='form'
@@ -89,7 +89,7 @@ export default function Forgot() {
               required
               fullWidth
               id='email'
-              label='Ingresa correo o número telefonico'
+              label='Ingresa correo electrónico'
               name='email'
               autoComplete='email'
               autoFocus

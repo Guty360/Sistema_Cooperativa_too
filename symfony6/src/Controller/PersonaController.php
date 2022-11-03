@@ -14,6 +14,14 @@ use SebastianBergmann\Environment\Console;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+//Load Composer's autoloader
+//require 'vendor/phpmailer/phpmailer/src/Exception.php';
+//require 'vendor/phpmailer/phpmailer/src/PHPMailer.php';
+//require 'vendor/phpmailer/phpmailer/src/SMTP.php';
 
 class PersonaController extends AbstractController
 {
@@ -26,6 +34,7 @@ class PersonaController extends AbstractController
         $personaAsArray = [];
         foreach ($personas as $persona) {
             $personaAsArray[] = [
+                //Solo se han colocado estos atributos para prueba, se pueden mandar a llamar a todos los atributos de la entidad
                 'id' => $persona->getId(),
                 'nombre' => $persona->getPrimerNombre(),
                 'correo' => $persona->getCorreo()
@@ -40,7 +49,7 @@ class PersonaController extends AbstractController
         return $response;
     }
     /**
-     * @Route("/olvida", name="encuentra_personas")
+     * @Route("/olvidaaa", name="encuentra_personas")
      */
     public function olvida(Request $request, PersonaRepository $personaRepository){
         $correo = $request->get('correo', null);
@@ -68,6 +77,41 @@ class PersonaController extends AbstractController
                 'encontrado' => true,
                 'data' => $personaAsArray
             ]);
+            //Create an instance; passing `true` enables exceptions
+            $mail = new PHPMailer(true);
+            //Se crea la generacion aleatoria de codigo de acceso
+            $charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            $cad = "";
+            for($i =0; $i<10; $i++){
+                $cad .= substr($charset, rand(0, 61), 1);
+            }
+            try {
+                //Server settings
+                //$mail->SMTPDebug = SMTP::DEBUG_SERVER;
+                $mail->isSMTP();              
+                $mail->Host       = 'smtp.gmail.com';
+                $mail->SMTPAuth   = true;
+                $mail->Username   = 'or030500@gmail.com';
+                $mail->Password   = 'qltrdggzrspiymxc';
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+                $mail->Port       = 465;
+                //Recipients
+                $mail->setFrom('or030500@gmail.com', 'Bot de codigos.');
+                $mail->addAddress('lr18062@ues.edu.sv', 'Asociado');
+                $mail->addCC('lr18062@ues.edu.sv');
+                
+                //Content
+                $mail->isHTML(true);
+                $mail->Subject = 'Codigo de acceso a su cuenta.';
+                $mail->Body    = $cad;
+                $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+                $mail->send();
+                echo 'Message has been sent.';
+
+            } catch (Exception $e) {
+                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }
             return $response;
         }
         
