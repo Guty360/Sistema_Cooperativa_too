@@ -47,11 +47,12 @@ const validate = (value) => {
 export default function Registrar() {
   const navigate = useNavigate();
   const [error, setError] = useState();
+
   const submit = (value, { resetForm }) => {
-    setError('');
     resetForm();
+    setError('');
     axios
-      .post(`${urlApi}/registro/usuario`, {
+      .post(`${urlApi}/registros/basedb`, {
         username: value.email,
         name: value.nombres,
         lastName: value.apellidos,
