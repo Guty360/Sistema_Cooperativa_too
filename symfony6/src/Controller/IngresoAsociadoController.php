@@ -217,16 +217,8 @@ class IngresoAsociadoController extends AbstractController
         $em->persist($direccionEmpresario);
         $em->flush();
 
-        //Negocio
-        $negocio = new Negocio();
-        $negocio->setActividadEconomica($actividadEconomicaEmpresario);
-        $negocio->setDireccion($direccionEmpresario);
-        $negocio->setNombreLegal($datos->{'nombreLegal'});
-        $negocio->setNombreComercial($datos->{'nombreComercial'});
-        $negocio->setTelefono($datos->{'telefonoNegocio'});
-        $negocio->setCorreo($datos->{'correoNegocio'});
-        $em->persist($negocio);
-        $em->flush();
+        //negocio
+
         //Estudio socioeconomico
         $estudioSocioEconomico = new EstudioSocioEconomico();
         $estudioSocioEconomico->setCapacidadAhorro($datos->{'capacidadAhorro'});
@@ -240,12 +232,34 @@ class IngresoAsociadoController extends AbstractController
         $em->flush();
 
         //HACIENDO EL PERSIST PARA LAS DOS ENTIDADES DE EMPLEADO Y EMPRESARIO, YA QUE AMNBAS NECESITAN UN ESTUDIO SOCIOECONOMICO
+        
         $actividadEconomicaEmpleado->setEstudioSocioEconomico($estudioSocioEconomico);
-        $em->persist($actividadEconomicaEmpleado);
-        $em->flush();
+        //$em->persist($actividadEconomicaEmpleado);
+        //$em->flush();
+        
         $actividadEconomicaEmpresario->setEstudioSocioEconomico($estudioSocioEconomico);
-        $em->persist($actividadEconomicaEmpresario);
+        if($actividadEconomicaEmpleado){
+            $em->persist($actividadEconomicaEmpleado);
+            $em->flush();
+        }elseif ($actividadEconomicaEmpresario) {
+            $em->persist($actividadEconomicaEmpresario);
+            $em->flush();
+        }
+        
+        
+
+        //
+        //Negocio
+        $negocio = new Negocio();
+        $negocio->setDireccion($direccionEmpresario);
+        $negocio->setNombreLegal($datos->{'nombreLegal'});
+        $negocio->setNombreComercial($datos->{'nombreComercial'});
+        $negocio->setTelefono($datos->{'telefonoNegocio'});
+        $negocio->setCorreo($datos->{'correoNegocio'});
+        $negocio->setActividadEconomica($actividadEconomicaEmpresario);
+        $em->persist($negocio);
         $em->flush();
+
         //Impresion del json previamente tomado por post
         if(!$datos)
         {
