@@ -31,64 +31,64 @@ class RegistroController extends AbstractController
         ]);
     }
 
-    // #[Route('/registro/usuario', name: 'app_registro_usuario', methods:['POST'])]
-    #[Route('/ruta/registro', name: 'app_registrarse', methods:['POST'])]
+    // // #[Route('/registro/usuario', name: 'app_registro_usuario', methods:['POST'])]
+    // #[Route('/ruta/registro', name: 'app_registrarse', methods:['POST'])]
 
-    // /**
-    //  * @Route("/pruebas/usuario", name="ruta_registro")
-    //  */
+    // // /**
+    // //  * @Route("/pruebas/usuario", name="ruta_registro")
+    // //  */
     
-    public function registrar(Request $request): Response
-    {
+    // public function registrar(Request $request): Response
+    // {
         
-        $datos = json_decode($request->getContent());
-        $persona = new Persona();
+    //     $datos = json_decode($request->getContent());
+    //     $persona = new Persona();
 
-        $username = $datos->{'username'};
-        $name = $datos->{'name'};
-        $lastname = $datos->{'lastname'};
-        $dateBirth = $datos->{'dateBirth'};
-        $phone = $datos->{'phone'};
-        /*"username":"jmge5833@gmail.com",
-        "password": "1212"
+    //     $username = $datos->{'username'};
+    //     $name = $datos->{'name'};
+    //     $lastname = $datos->{'lastname'};
+    //     $dateBirth = $datos->{'dateBirth'};
+    //     $phone = $datos->{'phone'};
+    //     /*"username":"jmge5833@gmail.com",
+    //     "password": "1212"
         
-        "name":"Pedro alvares",
-        "lastname": "fernando",
-        "dateBirth": "10/25/2022",
-        "phone": "74253645"*/
+    //     "name":"Pedro alvares",
+    //     "lastname": "fernando",
+    //     "dateBirth": "10/25/2022",
+    //     "phone": "74253645"*/
 
-         if($username && $name && $lastname && $dateBirth && $phone){
-        //Metodos del seteo de la base de datos de la tabla(entidad user)
-            $persona->setCorreo($username);
-            $persona->setPrimerNombre($name);
-            $persona->setSegundoNombre('hoa');
-            $persona->setTercerNombre('ho12a');
-            $persona->setPrimerApellido($lastname);
-            $persona->setSegundoApellido('Usr');
-            $persona->setApellidoCasada('de fenandez');
-            $persona->setCelular($phone);
-            $persona->setEdad('45');
-            $persona->setFechaNacimiento($dateBirth);
-            $this->em->persist($persona);
-            $this->em->flush();
+    //      if($username && $name && $lastname && $dateBirth && $phone){
+    //     //Metodos del seteo de la base de datos de la tabla(entidad user)
+    //         $persona->setCorreo($username);
+    //         $persona->setPrimerNombre($name);
+    //         $persona->setSegundoNombre('hoa');
+    //         $persona->setTercerNombre('ho12a');
+    //         $persona->setPrimerApellido($lastname);
+    //         $persona->setSegundoApellido('Usr');
+    //         $persona->setApellidoCasada('de fenandez');
+    //         $persona->setCelular($phone);
+    //         $persona->setEdad('45');
+    //         $persona->setFechaNacimiento($dateBirth);
+    //         $this->em->persist($persona);
+    //         $this->em->flush();
 
-            $response = new Response();
-            return $response->send();
-        }else{
-            $response = new Response(Response::HTTP_NOT_FOUND);
-            return $response->send();
-         }
+    //         $response = new Response();
+    //         return $response->send();
+    //     }else{
+    //         $response = new Response(Response::HTTP_NOT_FOUND);
+    //         return $response->send();
+    //      }
 
-         /*
-                    {
-            "username":"sadas@gmai.com",
-            "name":"Pedro alvares",
-            "lastname": "fernando",
-            "dateBirth": "10/25/2022",
-            "phone": "74253645"
-            }        
-        */
-    }         
+    //      /*
+    //                 {
+    //         "username":"sadas@gmai.com",
+    //         "name":"Pedro alvares",
+    //         "lastname": "fernando",
+    //         "dateBirth": "10/25/2022",
+    //         "phone": "74253645"
+    //         }        
+    //     */
+    // }         
 
         //-------------------------ESTE METODO SE UTILIZARA PARA INCRIPTAR LA CONTRASEÑA---------------------------
     #[Route('/registro/usuario/incriptado', name: 'app_registro_usuario', methods:['POST'])]

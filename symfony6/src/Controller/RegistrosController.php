@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+//-------------------NI se les ocurra tocar esto---------------------
 class RegistrosController extends AbstractController
 {
     private $em;
@@ -95,4 +97,5 @@ class RegistrosController extends AbstractController
                 return $response->send();
              }
              }
+
 }
