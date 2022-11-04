@@ -23,19 +23,21 @@
     "build": "encore production --progress"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.4",
-    "@emotion/styled": "^11.10.4",
+    "@emotion/react": "11.10.4",
+    "@emotion/styled": "11.10.4",
     "@mui/icons-material": "5.10.6",
     "@mui/material": "5.10.8",
     "@reduxjs/toolkit": "1.8.6",
     "axios": "1.1.2",
     "formik": "2.2.9",
+    "leaflet": "1.9.2",
     "prop-types": "15.8.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-imask": "^6.4.3",
-    "react-router-dom": "^6.4.2",
-    "react-select": "^5.5.7",
-    "yup": "^0.32.11"
+    "react-imask": "6.4.3",
+    "react-leaflet": "4.1.0",
+    "react-router-dom": "6.4.2",
+    "react-select": "5.5.7",
+    "yup": "0.32.11"
   }
 }
