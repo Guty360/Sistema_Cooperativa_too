@@ -2,6 +2,7 @@ import React from 'react';
 import { Formik, Form } from 'formik';
 import { Chip, Divider, Grid, TextField } from '@mui/material';
 import Map from '../../components/Map/Map';
+import SelectCountries from '../../components/SelectCountries';
 
 function InformacionDomicilio() {
   return (
@@ -24,18 +25,7 @@ function InformacionDomicilio() {
               columns={{ xs: 4, md: 12 }}
             >
               <Grid item xs={4} sm={4} md={4}>
-                <TextField
-                  id='country'
-                  name='country'
-                  margin='normal'
-                  required
-                  fullWidth
-                  label='País'
-                  autoComplete='country'
-                  value={values.country}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
+                <SelectCountries />
               </Grid>
               <Grid item xs={4} sm={4} md={4}>
                 <TextField

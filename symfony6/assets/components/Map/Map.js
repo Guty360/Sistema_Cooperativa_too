@@ -53,8 +53,6 @@ import IconLocation from './IconLocation';
 // }
 
 function Map() {
-  const [currentPos, setCurrentPos] = useState(null);
-
   const handleClick = (e) => {
     const { lat, lng } = e.latlng;
     console.log(lat, lng);
@@ -73,7 +71,7 @@ function Map() {
 
     return position === null ? null : (
       <Marker position={position} icon={IconLocation}>
-        <Popup>You are here</Popup>
+        <Popup>{`Estas aquí ${position}`}</Popup>
       </Marker>
     );
   }
