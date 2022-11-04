@@ -50,10 +50,12 @@ const validate = (value) => {
 const submit = (value, { resetForm }) => {
   //resetForm();
   axios
-    .post(`${urlApi}/registro/usuario`, {
+    .post(`${urlApi}/registros/basedb`, {
       username: value.email,
-      name: value.nombres,
-      lastName: value.apellidos,
+      name: value.primerNombre,
+      name2: value.segundoNombre,
+      lastName: value.primerApellido,
+      lastName2: value.segundoApellido,
       dateBirth: value.fechaNac,
       phone: value.tel,
     })
@@ -93,6 +95,7 @@ export default function Registrar() {
                 primerNombre: "",
                 segundoNombre: "",
                 primerApellido: "",
+                segundoApellido: "",
                 fechaNac: "",
                 tel: "",
                 email: "",
