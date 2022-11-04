@@ -39,17 +39,19 @@ class RegistrosController extends AbstractController
 
         $username = $datox->{'username'};
         $name = $datox->{'name'};
+        $name2 = $datox->{'name2'};
         $apellido = $datox->{'lastName'};
+        $apellido2 = $datox->{'lastName2'};
         $dateBirth = $datox->{'dateBirth'};
         $phone = $datox->{'phone'};
 
         if($username && $name && $apellido && $dateBirth && $phone){
             $persona->setCorreo($username);
             $persona->setPrimerNombre($name);
-            $persona->setSegundoNombre('hoa');
-            $persona->setTercerNombre('ho12a');
+            $persona->setSegundoNombre($name2);
+            $persona->setTercerNombre('');
             $persona->setPrimerApellido($apellido);
-            $persona->setSegundoApellido('Usr');
+            $persona->setSegundoApellido($apellido2);
             $persona->setApellidoCasada('de fenandez');
             $persona->setCelular($phone);
             $persona->setEdad('45');
