@@ -15,6 +15,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ButtonComp from '../../components/Button';
 import axios from 'axios';
 import { urlApi } from '../../utilities/url';
+import { Formik, Form, ErrorMessage } from 'formik';
+import { reEmail } from '../../utilities/regularExpression';
+import AlertComp from '../../components/Alert';
 
 function Copyright(props) {
   return (
@@ -37,19 +40,31 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Forgot() {
+  const validate = (value) => {
+    const error = {};
+
+    // Validacion correo
+    if (!value.email) {
+      error.email = 'Debes ingresar un correo';
+    } else if (!reEmail.test(value.email)) {
+      error.email = 'El correo en inválido';
+    }
+  };
   const [error, setError] = useState('');
-  const handleSubmit = (event) => {
+  const submit = (value, { resetForm }) => {
+    resetForm();
     setError('');
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    console.log(value.email);
     axios
-      .post(`${urlApi}/olvida`, { email1: data.email })
+      .post(`${urlApi}/olvida`, {
+        email1: value.email,
+      })
       .then((response) => {
         if (response.status == '200') {
-          alert(`Te enviamos un correo a ${data.email} verifica`);
+          alert(`Enviamos un código a ${value.email} verifique`);
         }
       })
-      .catch((error) => {
+      .catch(function (error) {
         setError(error.message);
       });
   };
@@ -89,53 +104,66 @@ export default function Forgot() {
             contraseña
           </Typography>
           {error && <p>{error}</p>}
-          <Box
-            component='form'
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
+          <Formik
+            initialValues={{
+              email: '',
+            }}
+            validate={validate}
+            onSubmit={submit}
           >
-            <TextField
-              margin='normal'
-              required
-              fullWidth
-              id='email'
-              label='Ingresa correo electrónico'
-              name='email'
-              autoComplete='email'
-              autoFocus
-              sx={{ width: '40ch' }}
-            />
-
-            <Grid container spacing={2}>
-              <Grid item sx={{ marginRight: 1 }}>
-                <Button
-                  className='boton-ingreso'
-                  type='submit'
-                  width='xs'
-                  variant='contained'
-                  color='error'
-                  href='/login'
-                  sx={{
-                    marginTop: 3.01,
-                    marginBottom: 2,
-                    marginLeft: 5,
-                    height: 41,
-                  }}
-                >
-                  Cancelar
-                </Button>
-              </Grid>
-              <Grid
-                item
-                sx={{
-                  marginTop: 0.5,
-                }}
-              >
-                <ButtonComp text='ENVIAR'></ButtonComp>
-              </Grid>
-            </Grid>
-          </Box>
+            {({ values, errors, handleChange, handleBlur }) => (
+              <Form>
+                <Box noValidate sx={{ mt: 1 }}>
+                  <TextField
+                    id='email'
+                    name='email'
+                    margin='normal'
+                    required
+                    fullWidth
+                    value={values.email}
+                    label='Ingresa correo electrónico'
+                    autoComplete='email'
+                    autoFocus
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    sx={{ width: '40ch' }}
+                  />
+                  <ErrorMessage
+                    name='email'
+                    component={() => <AlertComp text={errors.email} />}
+                  />
+                  <Grid container spacing={2}>
+                    <Grid item sx={{ marginRight: 1 }}>
+                      <Button
+                        className='boton-ingreso'
+                        type='submit'
+                        width='xs'
+                        variant='contained'
+                        color='error'
+                        href='/login'
+                        sx={{
+                          marginTop: 3.01,
+                          marginBottom: 2,
+                          marginLeft: 5,
+                          height: 41,
+                        }}
+                      >
+                        Cancelar
+                      </Button>
+                    </Grid>
+                    <Grid
+                      item
+                      sx={{
+                        marginTop: 0.5,
+                      }}
+                    >
+                      <ButtonComp text='ENVIAR'></ButtonComp>
+                    </Grid>
+                  </Grid>
+                </Box>
+              </Form>
+            )}
+          </Formik>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
