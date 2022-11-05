@@ -36,7 +36,6 @@ class RegistrosController extends AbstractController
     {
         $datox = json_decode($request->getContent());
         $persona = new Persona();
-        $user = new User();
 
         $username = $datox->{'username'};
         $name = $datox->{'name'};
@@ -48,7 +47,6 @@ class RegistrosController extends AbstractController
 
         if($username && $name && $apellido && $dateBirth && $phone){
             $persona->setCorreo($username);
-            $user->setEmail($username);
             $persona->setPrimerNombre($name);
             $persona->setSegundoNombre($name2);
             $persona->setTercerNombre('');
