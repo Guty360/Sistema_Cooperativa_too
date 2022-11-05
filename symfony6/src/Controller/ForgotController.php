@@ -37,7 +37,7 @@ class ForgotController extends AbstractController
     #[Route('/olvida', name: 'olvida_pass')]
     public function olvida(Request $request, UserRepository $userRepository, EntityManagerInterface $em){
         $datos = json_decode($request->getContent());
-        $correo = $datos->{'email1'};
+        $correo = $datos->{'email'};
         $userAsArray = [];
         $users = $userRepository->findAll();
         foreach ($users as $user) {

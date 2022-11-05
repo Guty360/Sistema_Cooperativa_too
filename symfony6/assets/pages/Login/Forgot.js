@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Avatar,
   Button,
@@ -13,6 +13,8 @@ import {
 import { Handshake } from '@mui/icons-material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ButtonComp from '../../components/Button';
+import axios from 'axios';
+import { urlApi } from '../../utilities/url';
 
 function Copyright(props) {
   return (
@@ -35,13 +37,21 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Forgot() {
+  const [error, setError] = useState('');
   const handleSubmit = (event) => {
+    setError('');
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    axios
+      .post(`${urlApi}/olvida`, { email1: data.email })
+      .then((response) => {
+        if (response.status == '200') {
+          alert(`Te enviamos un correo a ${data.email} verifica`);
+        }
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
   };
 
   return (
@@ -78,6 +88,7 @@ export default function Forgot() {
             Ingresa tu correo para recibir un código de recuperación de
             contraseña
           </Typography>
+          {error && <p>{error}</p>}
           <Box
             component='form'
             onSubmit={handleSubmit}

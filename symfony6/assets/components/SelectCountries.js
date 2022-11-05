@@ -2,21 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { TextField, MenuItem } from '@mui/material';
 import axios from 'axios';
 
+import { countries } from '../data/countries/countries';
 function SelectCountries({ name, value, handleChange, handleBlur }) {
-  const [countries, setCountries] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get('https://trial.mobiscroll.com/content/countries.json')
-      .then((response) => {
-        const { data } = response;
-        const countriesArray = [];
-        for (let i = 0; i < data.length; i++) {
-          countriesArray.push({ value: data[i].value, label: data[i].text });
-        }
-        setCountries(countriesArray);
-      });
-  }, []);
+  // const [countries, setCountries] = useState([]);
+  // useEffect(() => {
+  //   axios
+  //     .get('https://trial.mobiscroll.com/content/countries.json')
+  //     .then((response) => {
+  //       const { data } = response;
+  //       const countriesArray = [];
+  //       for (let i = 0; i < data.length; i++) {
+  //         countriesArray.push({ value: data[i].value, label: data[i].text });
+  //       }
+  //       setCountries(countriesArray);
+  //     });
+  // }, []);
   return (
     <>
       <TextField
@@ -33,8 +33,8 @@ function SelectCountries({ name, value, handleChange, handleBlur }) {
         sx={{ mb: 3 }}
       >
         {countries.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
+          <MenuItem key={option.id} value={option.name}>
+            {option.name}
           </MenuItem>
         ))}
       </TextField>
