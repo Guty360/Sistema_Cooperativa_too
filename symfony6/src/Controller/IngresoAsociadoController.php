@@ -207,7 +207,7 @@ class IngresoAsociadoController extends AbstractController
         $ubicacionGEmpresario->setLongitud($datos->{'longitudEmpresario'});
         $em->persist($ubicacionGEmpresario);
         $em->flush();
-
+        
         $direccionEmpresario = new Direccion();
         $direccionEmpresario->setResidencia($datos->{'residenciaEmpresario'});
         $direccionEmpresario->setAlquila($datos->{'alquilaEmpresario'});
@@ -245,7 +245,6 @@ class IngresoAsociadoController extends AbstractController
             $em->persist($actividadEconomicaEmpresario);
             $em->flush();
         }
-        
         
 
         //
