@@ -56,7 +56,7 @@ export default function Forgot() {
     setError('');
     console.log(value.email);
     axios
-      .post(`${urlApi}/olvida`, {
+      .post(`${urlApi}/forgoret`, {
         email1: value.email,
       })
       .then((response) => {
