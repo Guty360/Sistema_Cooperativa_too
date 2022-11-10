@@ -29,5 +29,37 @@ export const estadoCivil = [
   {
     value: 'viudo',
     label: 'Viuda/o',
+  }, 
+];
+
+export const isEmpleado = [
+  {
+    value: 'TRUE',
+    label: 'SI',
+  },
+  {
+    value: 'FALSE',
+    label: 'NO',
+  },
+];
+
+export const isEmpresario = [
+  {
+    value: 'TRUE',
+    label: 'SI',
+  },
+  {
+    value: 'FALSE',
+    label: 'NO',
+  },
+];
+export const alquila = [
+  {
+    value: 'TRUE',
+    label: 'SI',
+  },
+  {
+    value: 'FALSE',
+    label: 'NO',
   },
 ];
