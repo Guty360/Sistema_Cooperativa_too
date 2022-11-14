@@ -32,10 +32,11 @@ class RegistrosController extends AbstractController
     }
 
     #[Route('/registros/basedb', name:'app_registros_basedb')]
-    public function indexado(Request $request): JsonResponse
+    public function indexado(Request $request, UserPasswordHasherInterface $passwordHasher): JsonResponse
     {
         $datox = json_decode($request->getContent());
         $persona = new Persona();
+        $user = new User();
 
         $username = $datox->{'username'};
         $name = $datox->{'name'};
@@ -47,6 +48,16 @@ class RegistrosController extends AbstractController
 
         if($username && $name && $apellido && $dateBirth && $phone){
             $persona->setCorreo($username);
+            $user->setEmail($username);
+            $charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            $cad = "";
+            for($i =0; $i<10; $i++){
+                $cad .= substr($charset, rand(0, 61), 1);
+            }
+            $plaintextPassword = $cad;
+            $hashedPassword = $passwordHasher->hashPassword($user,$plaintextPassword);
+            $user->setPassword($hashedPassword);
+            $user->setRoles(['ROLE_USER']);
             $persona->setPrimerNombre($name);
             $persona->setSegundoNombre($name2);
             $persona->setTercerNombre('');
@@ -58,7 +69,9 @@ class RegistrosController extends AbstractController
             $persona->setFechaNacimiento($dateBirth);
             $this->em->persist($persona);
             $this->em->flush();
-
+            //
+            $this->em->persist($user);
+            $this->em->flush();
             $response = new JsonResponse();
             return $response->send();
         }else{
